@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateListCollegesTable extends Migration
+class CreateListProfessionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateListCollegesTable extends Migration
      */
     public function up()
     {
-        Schema::create('list_colleges', function (Blueprint $table) {
+        Schema::create('list_professions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('university_id');
-            $table->foreign('university_id')->references('id')->on('list_universities');
-            $table->index('university_id');
-            $table->unique(['name','university_id']);
+            $table->integer('college_id');
+            $table->foreign('college_id')->references('id')->on('list_colleges');
+            $table->index('college_id');
+            $table->unique(['name','college_id']);
         });
     }
 
@@ -30,6 +30,6 @@ class CreateListCollegesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_colleges');
+        Schema::dropIfExists('list_professions');
     }
 }

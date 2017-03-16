@@ -15,6 +15,9 @@ class CreateListClassroomsTable extends Migration
     {
         Schema::create('list_classrooms', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->comment('教室名');
+            $table->integer('building_id')->comment('教学楼名');
+            $table->foreign('building_id')->references('id')->on('list_buildings');
             $table->timestamps();
         });
     }

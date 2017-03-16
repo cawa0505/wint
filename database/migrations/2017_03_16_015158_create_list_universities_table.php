@@ -15,6 +15,13 @@ class CreateListUniversitiesTable extends Migration
     {
         Schema::create('list_universities', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->integer('district_id');
+            $table->double('longitude')->comment('学校精度，用于地理位置获取学校');
+            $table->double('latitude')->comment('维度，同上');
+            $table->foreign('district_id')->references('id')->on('list_districts');
+            $table->index('district_id');
+            $table->unique(['name','district_id']);
             $table->timestamps();
         });
     }

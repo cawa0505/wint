@@ -8,3 +8,8 @@ Homestead.json
 Homestead.yaml
 .env
 letsencrypt.log
+Vagrantfile
+.phpstorm.meta.php
+_ide_helper.php
+.vagrant/
+config/ide-helper.php

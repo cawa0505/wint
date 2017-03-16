@@ -15,7 +15,11 @@ class CreateListClassesTable extends Migration
     {
         Schema::create('list_classes', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->string('name');
+            $table->integer('profession_id');
+            $table->foreign('profession_id')->references('id')->on('list_professions');
+            $table->index('profession_id');
+            $table->unique(['name','profession_id']);
         });
     }
 
