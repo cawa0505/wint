@@ -15,7 +15,12 @@ class CreateListCitiesTable extends Migration
     {
         Schema::create('list_cities', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->string('name');
+	    $table->integer('province_id');	   
+	    $table->timestamps();
+	    $table->foreign('province_id')->references('id')->on('provinces');
+	    $table->index('province_id');
+	    $table->unique(['name','province_id']);
         });
     }
 
