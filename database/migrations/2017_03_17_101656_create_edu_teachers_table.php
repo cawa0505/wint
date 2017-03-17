@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEduCreditsTable extends Migration
+class CreateEduTeachersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateEduCreditsTable extends Migration
      */
     public function up()
     {
-        Schema::create('edu_credits', function (Blueprint $table) {
+        Schema::create('edu_teachers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->float('credit')->comment('学分');
-            $table->unsignedInteger('course_id')->comment('课程id');\
-            //TODO 没做完
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateEduCreditsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('edu_credits');
+        Schema::dropIfExists('edu_teachers');
     }
 }
