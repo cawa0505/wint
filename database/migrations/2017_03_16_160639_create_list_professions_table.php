@@ -16,7 +16,7 @@ class CreateListProfessionsTable extends Migration
         Schema::create('list_professions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('college_id');
+            $table->unsignedInteger('college_id');
             $table->foreign('college_id')->references('id')->on('list_colleges');
             $table->index('college_id');
             $table->unique(['name','college_id']);

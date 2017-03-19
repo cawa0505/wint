@@ -18,7 +18,7 @@ class CreateEduCoursesTable extends Migration
             $table->increments('id');
             $table->string('name')->comment('课程名');
             $table->string('code')->comment('课程编码');
-            $table->integer('college_id')->comment('开课学院');
+            $table->unsignedInteger('college_id')->comment('开课学院');
             $table->unsignedTinyInteger('is_common')->comment('1公共 0专业');
             $table->unsignedTinyInteger('is_required')->comment('1必修 0选修');
             $table->foreign('college_id')->references('id')->on('list_colleges');

@@ -16,7 +16,7 @@ class CreateListCitiesTable extends Migration
         Schema::create('list_cities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-	        $table->integer('province_id');
+	        $table->unsignedInteger('province_id');
 	        $table->foreign('province_id')->references('id')->on('list_provinces');
 	        $table->index('province_id');
 	        $table->unique(['name','province_id']);

@@ -16,7 +16,7 @@ class CreateListDistrictsTable extends Migration
         Schema::create('list_districts', function (Blueprint $table) {
             $table->increments('id');
 	    $table->string('name');
-	    $table->integer('city_id');
+	    $table->unsignedInteger('city_id');
 	    $table->foreign('city_id')->references('id')->on('cities');
 	    $table->unique(['city_id','name']);
 	    $table->index('city_id');

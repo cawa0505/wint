@@ -15,7 +15,7 @@ class CreateEduCreditsTable extends Migration
     {
         Schema::create('edu_credits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->unsignedInteger('user_id');
             $table->float('credit')->comment('学分');
             $table->unsignedInteger('course_id')->comment('课程id');
             $table->timestamps();

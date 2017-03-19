@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('学校管理');
+            $content->header('学校列表');
 
             $content->row(function ($row) {
                 $row->column(3, new InfoBox('New Users', 'users', 'aqua', '/admin/users', '1024'));

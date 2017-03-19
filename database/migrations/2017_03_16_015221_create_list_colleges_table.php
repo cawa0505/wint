@@ -16,7 +16,7 @@ class CreateListCollegesTable extends Migration
         Schema::create('list_colleges', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('university_id');
+            $table->unsignedInteger('university_id');
             $table->foreign('university_id')->references('id')->on('list_universities');
             $table->index('university_id');
             $table->unique(['name','university_id']);

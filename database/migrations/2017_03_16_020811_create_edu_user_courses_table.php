@@ -16,8 +16,8 @@ class CreateEduUserCoursesTable extends Migration
         Schema::create('edu_user_courses', function (Blueprint $table) {
             //用户与课程对应表
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('schedule_id')->comment('课程排表id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('schedule_id')->comment('课程排表id');
             $table->string('remark')->comment('备注');
             $table->timestamps();
         });
