@@ -17,8 +17,7 @@ class CreateEduCreditsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->float('credit')->comment('学分');
-            $table->unsignedInteger('course_id')->comment('课程id');\
-            //TODO 没做完
+            $table->unsignedInteger('course_id')->comment('课程id');
             $table->timestamps();
         });
     }

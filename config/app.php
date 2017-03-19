@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => '最微点',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,7 +168,9 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Encore\Admin\Providers\AdminServiceProvider::class,
-        
+        Laravel\Passport\PassportServiceProvider::class,
+
+
 
         /*
          * Application Service Providers...

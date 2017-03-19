@@ -18,7 +18,7 @@ class CreateEduGradesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('course_id');
             $table->unsignedInteger('user_id');
-            $table->string('year');
+            $table->string('year',4);
             $table->string('term');
             $table->float('grade');
             $table->unsignedTinyInteger('state')->default(0)->comment('类型,0正常,1补考,2重修,3免修');

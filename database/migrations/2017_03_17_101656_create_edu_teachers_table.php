@@ -15,6 +15,9 @@ class CreateEduTeachersTable extends Migration
     {
         Schema::create('edu_teachers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->tinyInteger('sex')->comment('性别');
+
             $table->timestamps();
         });
     }
