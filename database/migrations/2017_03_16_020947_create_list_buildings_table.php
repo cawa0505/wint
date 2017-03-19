@@ -17,7 +17,7 @@ class CreateListBuildingsTable extends Migration
             $table->increments('id');
             $table->string('name')->comment('教学楼名');
             $table->unsignedInteger('school_id');
-            $table->foreign('school_id')->references('id')->on('list_schools');
+            $table->foreign('school_id')->references('id')->on('list_universities');
             $table->timestamps();
         });
     }
