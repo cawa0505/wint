@@ -22,7 +22,7 @@ class CreateEduSchoolInfosTable extends Migration
             $table->unsignedInteger('year')->comment('当前年份');
             $table->string('term',2)->comment('学期，A秋季学期，S春季学期');
             $table->date('new_term')->comment('开学日期，通过其与当前时间比对计算当前周数');
-            $table->foreign('school_id')->references('id')->on('list_schools');
+            $table->foreign('school_id')->references('id')->on('list_universities');
             $table->timestamps();
         });
     }

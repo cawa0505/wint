@@ -15,11 +15,11 @@ class CreateListDistrictsTable extends Migration
     {
         Schema::create('list_districts', function (Blueprint $table) {
             $table->increments('id');
-	    $table->string('name');
-	    $table->unsignedInteger('city_id');
-	    $table->foreign('city_id')->references('id')->on('cities');
-	    $table->unique(['city_id','name']);
-	    $table->index('city_id');
+    	    $table->string('name');
+    	    $table->unsignedInteger('city_id');
+    	    $table->foreign('city_id')->references('id')->on('list_cities');
+    	    $table->unique(['city_id','name']);
+    	    $table->index('city_id');
         });
     }
 
