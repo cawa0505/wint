@@ -67,3 +67,7 @@ Route::get('/test',function(){
 	$response=$client->get('xs/cjkb.asp?id=5',['cookies'=>$jar]);
 	echo iconv("gbk", "utf-8", strip_tags($response->getBody(),'<td>,<tr>,<table>,<th>'));
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
