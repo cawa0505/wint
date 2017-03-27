@@ -11,7 +11,8 @@
         "guzzlehttp/guzzle": "^6.2",
         "laravel/framework": "5.4.*",
         "laravel/passport": "^2.0",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "toplan/laravel-sms": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
