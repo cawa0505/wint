@@ -57,5 +57,27 @@ class User extends Authenticatable
         return $query->where('status', self::STATUS_NORMAL);
     }
 
+    /**
+     * @param $data
+     * @return bool
+     */
+    public function register($data){
+        $username=$data['username'];
+        $where=[];
+        if(preg_match('/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/',$username)){
+            $where['email']=$username;
+        }
+        if(preg_match('/^1[3578]\d{9}$/',$username)){
+            $where['phone']=$username;
+        }
+        if(preg_match('/^[A-Za-z_][A-Za-z_0-9]*$/',$username)){
+            $where['name']=$username;
+        }
+        if(!isset($where)){
+            return false;
+        }
+        $where['password']=bcrypt($data['password']);
+        return self::create($where);
+    }
 
 }
