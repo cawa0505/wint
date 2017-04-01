@@ -17,9 +17,11 @@ class CreateListDistrictsTable extends Migration
             $table->increments('id');
     	    $table->string('name');
     	    $table->unsignedInteger('city_id');
+            $table->string('code','6');
     	    $table->foreign('city_id')->references('id')->on('list_cities');
     	    $table->unique(['city_id','name']);
     	    $table->index('city_id');
+            $table->unique('code');
         });
     }
 

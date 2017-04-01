@@ -20,6 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:api','domain'=>'api.'.env('APP_URL'),'prefix'=>'api'],function(){
 
 });
-Route::get('/api/china-area/city','ChinaAreaController@city');
-Route::get('/api/china-area/district','ChinaAreaController@district');
 

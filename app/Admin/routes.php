@@ -13,4 +13,6 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->resource('/lists/university','Lists\UniversityController');
+    $router->get('/api/china-area/city','Lists\UniversityController@cityList');
+    $router->get('/api/china-area/district','Lists\UniversityController@districtList');
 });

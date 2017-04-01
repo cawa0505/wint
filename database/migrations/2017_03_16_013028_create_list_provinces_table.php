@@ -16,7 +16,9 @@ class CreateListProvincesTable extends Migration
         Schema::create('list_provinces', function (Blueprint $table) {
             $table->increments('id');
     	    $table->string('name');
+    	    $table->string('code','6');
     	    $table->unique('name');
+            $table->unique('code');
         });
     }
 

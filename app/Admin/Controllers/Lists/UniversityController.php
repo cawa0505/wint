@@ -14,6 +14,8 @@ use Encore\Admin\Controllers\ModelForm;
 use App\Models\ListProvince;
 use App\Models\ListCity;
 use App\Models\ListDistrict;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UniversityController extends Controller
 {
@@ -98,18 +100,24 @@ class UniversityController extends Controller
 
             $form->display('id', 'ID');
             $form->text('name','学校名称');
-            $form->select('province_id','所在省')->options(ListProvince::pluck('name','id'))->load('city_id','/api/china-area/city');
-            $form->select('city_id','所在市')->options(function($id){
-                return ChinaAreaController::citylist($id);
-            })->load('district_id','/api/china-area/district');
-            $form->select('district_id','所在区')->options(function ($id) {
-                return ChinaAreaController::districtList($id);
-            });
+            $form->select('province_id','所在省')->options(ListProvince::pluck('name','id'))->load('city_id','/admin/api/china-area/city');
+            $form->select('city_id','所在市')->load('district_id','/admin/api/china-area/district');
+            $form->select('district_id','所在区');
             $form->text('longitude','经度');
             $form->text('latitude','纬度');
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
             $form->ignore(['province_id','city_id']);
         });
+    }
+
+    public function cityList(Request $request){
+        $provinceId = $request->get('q');
+        return ListCity::where('province_id', $provinceId)->get(['id', DB::raw('name as text')]);
+    }
+
+    public function districtList(Request $request){
+        $provinceId = $request->get('q');
+        return ListDistrict::where('city_id', $provinceId)->get(['id', DB::raw('name as text')]);
     }
 }
