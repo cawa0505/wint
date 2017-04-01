@@ -19,7 +19,7 @@ use Encore\Admin\Widgets\InfoBox;
 use Encore\Admin\Widgets\Tab;
 use Encore\Admin\Widgets\Table;
 
-class HomeController extends Controller
+class UniversityController extends Controller
 {
     public function index()
     {
