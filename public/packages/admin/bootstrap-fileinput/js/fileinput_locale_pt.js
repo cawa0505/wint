@@ -40,7 +40,7 @@
         msgLoading: 'A carregar ficheiro {index} de {files} &hellip;',
         msgProgress: 'A carregar ficheiro {index} de {files} - {name} - {percent}% completo.',
         msgSelected: '{n} {files} seleccionados',
-        msgFoldersNotAllowed: 'Arrastar e largar ficheiros apenas! {n} pasta(s) ignoradas.',
+        msgFoldersNotAllowed: 'Arrastar e largar ficheiros apenas! {n} pasta(Lists) ignoradas.',
         msgImageWidthSmall: 'Largura do arquivo de imagem "{name}" deve ser pelo menos {size} px.',
         msgImageHeightSmall: 'Altura do arquivo de imagem "{name}" deve ser pelo menos {size} px.',
         msgImageWidthLarge: 'Largura do arquivo de imagem "{name}" não pode exceder {size} px.',

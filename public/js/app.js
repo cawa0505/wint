@@ -482,7 +482,7 @@ var process = module.exports = {};
 
 // cached from whatever global is present so that test runners that stub it
 // don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// wrapped in strict mode code which doesn't define any globals.  It'Lists inside a
 // function because try/catches deoptimize in certain engines.
 
 var cachedSetTimeout;
@@ -532,7 +532,7 @@ function runTimeout(fun) {
             // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
             return cachedSetTimeout.call(null, fun, 0);
         } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            // same as above but when it'Lists a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
             return cachedSetTimeout.call(this, fun, 0);
         }
     }
@@ -557,7 +557,7 @@ function runClearTimeout(marker) {
             // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
             return cachedClearTimeout.call(null, marker);
         } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // same as above but when it'Lists a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
             // Some versions of I.E. have different rules for clearTimeout vs setTimeout
             return cachedClearTimeout.call(this, marker);
         }
@@ -722,7 +722,7 @@ module.exports = function xhrAdapter(config) {
       // The request errored out and we didn't get a response, this will be
       // handled by onerror instead
       // With one exception: request that using file: protocol, most browsers
-      // will return status as 0 even though it's a successful request
+      // will return status as 0 even though it'Lists a successful request
       if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
         return;
       }
@@ -749,7 +749,7 @@ module.exports = function xhrAdapter(config) {
     // Handle low level network errors
     request.onerror = function handleError() {
       // Real errors are hidden from us by the browser
-      // onerror should only fire if it's a network error
+      // onerror should only fire if it'Lists a network error
       reject(createError('Network Error', config));
 
       // Clean up request
@@ -1116,7 +1116,7 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	// For internal use only.
-	// Behaves like an Array's method, not like a jQuery method.
+	// Behaves like an Array'Lists method, not like a jQuery method.
 	push: push,
 	sort: arr.sort,
 	splice: arr.splice
@@ -1522,7 +1522,7 @@ var i,
 	push_native = arr.push,
 	push = arr.push,
 	slice = arr.slice,
-	// Use a stripped-down indexOf as it's faster than native
+	// Use a stripped-down indexOf as it'Lists faster than native
 	// https://jsperf.com/thor-indexof-vs-for/5
 	indexOf = function( list, elem ) {
 		var i = 0,
@@ -2075,7 +2075,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		return !el.getAttribute("className");
 	});
 
-	/* getElement(s)By*
+	/* getElement(Lists)By*
 	---------------------------------------------------------------------- */
 
 	// Check if getElementsByTagName("*") returns only elements
@@ -2210,7 +2210,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		// Regex strategy adopted from Diego Perini
 		assert(function( el ) {
 			// Select is set to empty string on purpose
-			// This is to test IE's treatment of not explicitly
+			// This is to test IE'Lists treatment of not explicitly
 			// setting a boolean content attribute,
 			// since its presence should be enough
 			// https://bugs.jquery.com/ticket/12359
@@ -2275,7 +2275,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Support: IE9-11+
-			// IE's :disabled selector does not pick up the children of disabled fieldsets
+			// IE'Lists :disabled selector does not pick up the children of disabled fieldsets
 			docElem.appendChild( el ).disabled = true;
 			if ( el.querySelectorAll(":disabled").length !== 2 ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
@@ -2294,13 +2294,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 		docElem.msMatchesSelector) )) ) {
 
 		assert(function( el ) {
-			// Check to see if it's possible to do matchesSelector
+			// Check to see if it'Lists possible to do matchesSelector
 			// on a disconnected node (IE 9)
 			support.disconnectedMatch = matches.call( el, "*" );
 
 			// This should fail with an exception
 			// Gecko does not error, returns false instead
-			matches.call( el, "[s!='']:x" );
+			matches.call( el, "[Lists!='']:x" );
 			rbuggyMatches.push( "!=", pseudos );
 		});
 	}
@@ -2460,7 +2460,7 @@ Sizzle.matchesSelector = function( elem, expr ) {
 		try {
 			var ret = matches.call( elem, expr );
 
-			// IE 9's matchesSelector returns false on disconnected nodes
+			// IE 9'Lists matchesSelector returns false on disconnected nodes
 			if ( ret || support.disconnectedMatch ||
 					// As well, disconnected nodes are said to be in a document
 					// fragment in IE 9
@@ -2931,10 +2931,10 @@ Expr = Sizzle.selectors = {
 		}),
 
 		// "Whether an element is represented by a :lang() selector
-		// is based solely on the element's language value
+		// is based solely on the element'Lists language value
 		// being equal to the identifier C,
 		// or beginning with the identifier C immediately followed by "-".
-		// The matching of C against the element's language value is performed case-insensitively.
+		// The matching of C against the element'Lists language value is performed case-insensitively.
 		// The identifier C does not have to be a valid language name."
 		// http://www.w3.org/TR/selectors/#lang-pseudo
 		"lang": markFunction( function( lang ) {
@@ -3382,7 +3382,7 @@ function matcherFromTokens( tokens ) {
 		implicitRelative = leadingRelative || Expr.relative[" "],
 		i = leadingRelative ? 1 : 0,
 
-		// The foundational matcher ensures that elements are reachable from top-level context(s)
+		// The foundational matcher ensures that elements are reachable from top-level context(Lists)
 		matchContext = addCombinator( function( elem ) {
 			return elem === checkContext;
 		}, implicitRelative, true ),
@@ -3575,7 +3575,7 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 };
 
 /**
- * A low-level selection function that works with Sizzle's compiled
+ * A low-level selection function that works with Sizzle'Lists compiled
  *  selector functions
  * @param {String|Function} selector A selector or a pre-compiled
  *  selector function built with Sizzle.compile
@@ -4025,7 +4025,7 @@ jQuery.fn.extend( {
 			matched = [],
 			targets = typeof selectors !== "string" && jQuery( selectors );
 
-		// Positional selectors never match, since there's no _selection_ context
+		// Positional selectors never match, since there'Lists no _selection_ context
 		if ( !rneedsContext.test( selectors ) ) {
 			for ( ; i < l; i++ ) {
 				for ( cur = this[ i ]; cur && cur !== context; cur = cur.parentNode ) {
@@ -4567,7 +4567,7 @@ jQuery.extend( {
 											args = [ returned ];
 										}
 
-										// Process the value(s)
+										// Process the value(Lists)
 										// Default process is resolve
 										( special || deferred.resolveWith )( that, args );
 									}
@@ -4612,7 +4612,7 @@ jQuery.extend( {
 							} else {
 
 								// Call an optional hook to record the stack, in case of exception
-								// since it's otherwise lost when execution goes async
+								// since it'Lists otherwise lost when execution goes async
 								if ( jQuery.Deferred.getStackHook ) {
 									process.stackTrace = jQuery.Deferred.getStackHook();
 								}
@@ -4883,7 +4883,7 @@ if ( document.readyState === "complete" ||
 
 
 // Multifunctional method to get and set values of a collection
-// The value/s can optionally be executed if it's a function
+// The value/Lists can optionally be executed if it'Lists a function
 var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 	var i = 0,
 		len = elems.length,
@@ -5087,7 +5087,7 @@ Data.prototype = {
 			}
 		}
 
-		// Remove the expando if there's no more data
+		// Remove the expando if there'Lists no more data
 		if ( key === undefined || jQuery.isEmptyObject( cache ) ) {
 
 			// Support: Chrome <=35 - 45
@@ -5115,7 +5115,7 @@ var dataUser = new Data();
 //	Implementation Summary
 //
 //	1. Enforce API surface and semantic compatibility with 1.9.x branch
-//	2. Improve the module's maintainability by reducing the storage
+//	2. Improve the module'Lists maintainability by reducing the storage
 //		paths to a single mechanism.
 //	3. Use the same single mechanism to support "private" and "user" data.
 //	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
@@ -5931,7 +5931,7 @@ jQuery.event = {
 			handler.guid = jQuery.guid++;
 		}
 
-		// Init the element's event structure and main handler, if this is the first
+		// Init the element'Lists event structure and main handler, if this is the first
 		if ( !( events = elemData.events ) ) {
 			events = elemData.events = {};
 		}
@@ -6002,7 +6002,7 @@ jQuery.event = {
 				}
 			}
 
-			// Add to the element's handler list, delegates in front
+			// Add to the element'Lists handler list, delegates in front
 			if ( selector ) {
 				handlers.splice( handlers.delegateCount++, 0, handleObj );
 			} else {
@@ -6083,7 +6083,7 @@ jQuery.event = {
 			}
 		}
 
-		// Remove data and the expando if it's no longer used
+		// Remove data and the expando if it'Lists no longer used
 		if ( jQuery.isEmptyObject( events ) ) {
 			dataPriv.remove( elem, "handle events" );
 		}
@@ -6125,7 +6125,7 @@ jQuery.event = {
 			while ( ( handleObj = matched.handlers[ j++ ] ) &&
 				!event.isImmediatePropagationStopped() ) {
 
-				// Triggered event must either 1) have no namespace, or 2) have namespace(s)
+				// Triggered event must either 1) have no namespace, or 2) have namespace(Lists)
 				// a subset or equal to those in the bound event (both can have no namespace).
 				if ( !event.rnamespace || event.rnamespace.test( handleObj.namespace ) ) {
 
@@ -6807,7 +6807,7 @@ jQuery.extend( {
 							if ( special[ type ] ) {
 								jQuery.event.remove( elem, type );
 
-							// This is a shortcut to avoid jQuery.event.remove's overhead
+							// This is a shortcut to avoid jQuery.event.remove'Lists overhead
 							} else {
 								jQuery.removeEvent( elem, type, data.handle );
 							}
@@ -7148,12 +7148,12 @@ function curCSS( elem, name, computed ) {
 
 function addGetHookIf( conditionFn, hookFn ) {
 
-	// Define the hook, we'll check on the first run if it's really needed.
+	// Define the hook, we'll check on the first run if it'Lists really needed.
 	return {
 		get: function() {
 			if ( conditionFn() ) {
 
-				// Hook not needed (or it's not possible to use it due
+				// Hook not needed (or it'Lists not possible to use it due
 				// to missing dependency), remove it.
 				delete this.get;
 				return;
@@ -7395,7 +7395,7 @@ jQuery.extend( {
 				value += ret && ret[ 3 ] || ( jQuery.cssNumber[ origName ] ? "" : "px" );
 			}
 
-			// background-* props affect original clone's values
+			// background-* props affect original clone'Lists values
 			if ( !support.clearCloneStyle && value === "" && name.indexOf( "background" ) === 0 ) {
 				style[ name ] = "inherit";
 			}
@@ -7839,7 +7839,7 @@ function defaultPrefilter( elem, props, opts ) {
 				display = restoreDisplay;
 			} else {
 
-				// Get nonempty value(s) by temporarily forcing visibility
+				// Get nonempty value(Lists) by temporarily forcing visibility
 				showHide( [ elem ], true );
 				restoreDisplay = elem.style.display || restoreDisplay;
 				display = jQuery.css( elem, "display" );
@@ -7995,7 +7995,7 @@ function Animation( elem, properties, options ) {
 
 			deferred.notifyWith( elem, [ animation, percent, remaining ] );
 
-			// If there's more to do, yield
+			// If there'Lists more to do, yield
 			if ( percent < 1 && length ) {
 				return remaining;
 			}
@@ -9150,7 +9150,7 @@ jQuery.extend( jQuery.event, {
 				acceptData( elem ) ) {
 
 				// Call a native DOM method on the target with the same name as the event.
-				// Don't do default actions on window, that's where global variables be (#6170)
+				// Don't do default actions on window, that'Lists where global variables be (#6170)
 				if ( ontype && jQuery.isFunction( elem[ type ] ) && !jQuery.isWindow( elem ) ) {
 
 					// Don't re-trigger an onFOO event when we call its FOO() method
@@ -9438,7 +9438,7 @@ var
 	 * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
 	 * 2) These are called:
 	 *    - BEFORE asking for a transport
-	 *    - AFTER param serialization (s.data is a string if s.processData is true)
+	 *    - AFTER param serialization (Lists.data is a string if Lists.processData is true)
 	 * 3) key is the dataType
 	 * 4) the catchall symbol "*" can be used
 	 * 5) execution will start with transport dataType and THEN continue down to "*" if needed
@@ -9634,7 +9634,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 
 		if ( current ) {
 
-			// There's only work to do if current dataType is non-auto
+			// There'Lists only work to do if current dataType is non-auto
 			if ( current === "*" ) {
 
 				current = prev;
@@ -9953,7 +9953,7 @@ jQuery.extend( {
 				urlAnchor.href = s.url;
 
 				// Support: IE <=8 - 11 only
-				// Anchor's host property isn't correctly set when s.url is relative
+				// Anchor'Lists host property isn't correctly set when Lists.url is relative
 				urlAnchor.href = urlAnchor.href;
 				s.crossDomain = originAnchor.protocol + "//" + originAnchor.host !==
 					urlAnchor.protocol + "//" + urlAnchor.host;
@@ -10008,7 +10008,7 @@ jQuery.extend( {
 			if ( s.data ) {
 				cacheURL += ( rquery.test( cacheURL ) ? "&" : "?" ) + s.data;
 
-				// #9682: remove data so that it's not used in an eventual retry
+				// #9682: remove data so that it'Lists not used in an eventual retry
 				delete s.data;
 			}
 
@@ -10174,7 +10174,7 @@ jQuery.extend( {
 				} else if ( status === 304 ) {
 					statusText = "notmodified";
 
-				// If we have data, let's convert it
+				// If we have data, let'Lists convert it
 				} else {
 					statusText = response.state;
 					success = response.data;
@@ -10539,7 +10539,7 @@ jQuery.ajaxSetup( {
 	}
 } );
 
-// Handle cache's special case and crossDomain
+// Handle cache'Lists special case and crossDomain
 jQuery.ajaxPrefilter( "script", function( s ) {
 	if ( s.cache === undefined ) {
 		s.cache = false;
@@ -10717,7 +10717,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 
 			// Set the base href for the created document
 			// so any parsed elements with URLs
-			// are based on the document's URL (gh-2965)
+			// are based on the document'Lists URL (gh-2965)
 			base = context.createElement( "base" );
 			base.href = document.location.href;
 			context.head.appendChild( base );
@@ -10757,10 +10757,10 @@ jQuery.fn.load = function( url, params, callback ) {
 		url = url.slice( 0, off );
 	}
 
-	// If it's a function
+	// If it'Lists a function
 	if ( jQuery.isFunction( params ) ) {
 
-		// We assume that it's the callback
+		// We assume that it'Lists the callback
 		callback = params;
 		params = undefined;
 
@@ -11205,7 +11205,7 @@ try {
 }
 
 // g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
+// We return undefined, instead of nothing here, so it'Lists
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
@@ -11217,7 +11217,7 @@ module.exports = g;
 
 
 /**
- * First we will load all of this project's JavaScript dependencies which
+ * First we will load all of this project'Lists JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
@@ -11869,7 +11869,7 @@ module.exports = (
       },
 
       read: function read(name) {
-        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+        var match = document.cookie.match(new RegExp('(^|;\\Lists*)(' + name + ')=([^;]*)'));
         return (match ? decodeURIComponent(match[3]) : null);
       },
 
@@ -11931,7 +11931,7 @@ module.exports = (
     var originURL;
 
     /**
-    * Parse a URL to discover it's components
+    * Parse a URL to discover it'Lists components
     *
     * @param {String} url The URL to be parsed
     * @returns {Object}
@@ -12131,7 +12131,7 @@ __webpack_require__(32);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
- * using reactive data binding and reusable components. Vue's API is clean
+ * using reactive data binding and reusable components. Vue'Lists API is clean
  * and simple, leaving you to focus on building your next great project.
  */
 
@@ -12176,14 +12176,14 @@ window.axios.defaults.headers.common = {
  */
 
 if (typeof jQuery === 'undefined') {
-  throw new Error('Bootstrap\'s JavaScript requires jQuery')
+  throw new Error('Bootstrap\'Lists JavaScript requires jQuery')
 }
 
 +function ($) {
   'use strict';
   var version = $.fn.jquery.split(' ')[0].split('.')
   if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1) || (version[0] > 3)) {
-    throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4')
+    throw new Error('Bootstrap\'Lists JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4')
   }
 }(jQuery);
 
@@ -14793,7 +14793,7 @@ if (typeof jQuery === 'undefined') {
   /** Used to compose unicode regexes. */
   var rsMiscLower = '(?:' + rsLower + '|' + rsMisc + ')',
       rsMiscUpper = '(?:' + rsUpper + '|' + rsMisc + ')',
-      rsOptContrLower = '(?:' + rsApos + '(?:d|ll|m|re|s|t|ve))?',
+      rsOptContrLower = '(?:' + rsApos + '(?:d|ll|m|re|Lists|t|ve))?',
       rsOptContrUpper = '(?:' + rsApos + '(?:D|LL|M|RE|S|T|VE))?',
       reOptMod = rsModifier + '?',
       rsOptVar = '[' + rsVarRange + ']?',
@@ -15015,7 +15015,7 @@ if (typeof jQuery === 'undefined') {
    * @returns {Object} Returns `map`.
    */
   function addMapEntry(map, pair) {
-    // Don't return `map.set` because it's not chainable in IE 11.
+    // Don't return `map.set` because it'Lists not chainable in IE 11.
     map.set(pair[0], pair[1]);
     return map;
   }
@@ -15029,7 +15029,7 @@ if (typeof jQuery === 'undefined') {
    * @returns {Object} Returns `set`.
    */
   function addSetEntry(set, value) {
-    // Don't return `set.add` because it's not chainable in IE 11.
+    // Don't return `set.add` because it'Lists not chainable in IE 11.
     set.add(value);
     return set;
   }
@@ -16115,7 +16115,7 @@ if (typeof jQuery === 'undefined') {
      * Explicit chain sequences, which must be unwrapped with `_#value`, may be
      * enabled using `_.chain`.
      *
-     * The execution of chained methods is lazy, that is, it's deferred until
+     * The execution of chained methods is lazy, that is, it'Lists deferred until
      * `_#value` is implicitly or explicitly called.
      *
      * Lazy evaluation allows several methods to support shortcut fusion.
@@ -18989,7 +18989,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * Casts `value` to an empty array if it's not an array like object.
+     * Casts `value` to an empty array if it'Lists not an array like object.
      *
      * @private
      * @param {*} value The value to inspect.
@@ -19000,7 +19000,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * Casts `value` to `identity` if it's not a function.
+     * Casts `value` to `identity` if it'Lists not a function.
      *
      * @private
      * @param {*} value The value to inspect.
@@ -19011,7 +19011,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * Casts `value` to a path array if it's not one.
+     * Casts `value` to a path array if it'Lists not one.
      *
      * @private
      * @param {*} value The value to inspect.
@@ -19037,7 +19037,7 @@ if (typeof jQuery === 'undefined') {
     var castRest = baseRest;
 
     /**
-     * Casts `array` to a slice if it's needed.
+     * Casts `array` to a slice if it'Lists needed.
      *
      * @private
      * @param {Array} array The array to inspect.
@@ -19592,7 +19592,7 @@ if (typeof jQuery === 'undefined') {
         var thisBinding = baseCreate(Ctor.prototype),
             result = Ctor.apply(thisBinding, args);
 
-        // Mimic the constructor's `return` behavior.
+        // Mimic the constructor'Lists `return` behavior.
         // See https://es5.github.io/#x13.2.2 for more details.
         return isObject(result) ? result : thisBinding;
       };
@@ -20561,7 +20561,7 @@ if (typeof jQuery === 'undefined') {
      * @private
      * @param {Object} object The object to query.
      * @param {string} key The key of the method to get.
-     * @returns {*} Returns the function if it's native, else `undefined`.
+     * @returns {*} Returns the function if it'Lists native, else `undefined`.
      */
     function getNative(object, key) {
       var value = getValue(object, key);
@@ -21006,7 +21006,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * A specialized version of `_.memoize` which clears the memoized function's
+     * A specialized version of `_.memoize` which clears the memoized function'Lists
      * cache when it exceeds `MAX_MEMOIZE_SIZE`.
      *
      * @private
@@ -21081,7 +21081,7 @@ if (typeof jQuery === 'undefined') {
       if (value) {
         data[7] = value;
       }
-      // Use source `ary` if it's smaller.
+      // Use source `ary` if it'Lists smaller.
       if (srcBitmask & WRAP_ARY_FLAG) {
         data[8] = data[8] == null ? source[8] : nativeMin(data[8], source[8]);
       }
@@ -21245,7 +21245,7 @@ if (typeof jQuery === 'undefined') {
 
     /**
      * Creates a function that'll short out and invoke `identity` instead
-     * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
+     * of `func` when it'Lists called `HOT_COUNT` or more times in `HOT_SPAN`
      * milliseconds.
      *
      * @private
@@ -21316,7 +21316,7 @@ if (typeof jQuery === 'undefined') {
     });
 
     /**
-     * Converts `value` to a string key if it's not a string or symbol.
+     * Converts `value` to a string key if it'Lists not a string or symbol.
      *
      * @private
      * @param {*} value The value to inspect.
@@ -21999,7 +21999,7 @@ if (typeof jQuery === 'undefined') {
     /**
      * Gets the index at which the first occurrence of `value` is found in `array`
      * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
-     * for equality comparisons. If `fromIndex` is negative, it's used as the
+     * for equality comparisons. If `fromIndex` is negative, it'Lists used as the
      * offset from the end of `array`.
      *
      * @static
@@ -22652,7 +22652,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * This method is like `_.uniq` except that it's designed and optimized
+     * This method is like `_.uniq` except that it'Lists designed and optimized
      * for sorted arrays.
      *
      * @static
@@ -22673,7 +22673,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * This method is like `_.uniqBy` except that it's designed and optimized
+     * This method is like `_.uniqBy` except that it'Lists designed and optimized
      * for sorted arrays.
      *
      * @static
@@ -23971,10 +23971,10 @@ if (typeof jQuery === 'undefined') {
     });
 
     /**
-     * Checks if `value` is in `collection`. If `collection` is a string, it's
+     * Checks if `value` is in `collection`. If `collection` is a string, it'Lists
      * checked for a substring of `value`, otherwise
      * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
-     * is used for equality comparisons. If `fromIndex` is negative, it's used as
+     * is used for equality comparisons. If `fromIndex` is negative, it'Lists used as
      * the offset from the end of `collection`.
      *
      * @static
@@ -24016,7 +24016,7 @@ if (typeof jQuery === 'undefined') {
     /**
      * Invokes the method at `path` of each element in `collection`, returning
      * an array of the results of each invoked method. Any additional arguments
-     * are provided to each invoked method. If `path` is a function, it's invoked
+     * are provided to each invoked method. If `path` is a function, it'Lists invoked
      * for, and `this` bound to, each element in `collection`.
      *
      * @static
@@ -24537,7 +24537,7 @@ if (typeof jQuery === 'undefined') {
 
     /**
      * The opposite of `_.before`; this method creates a function that invokes
-     * `func` once it's called `n` or more times.
+     * `func` once it'Lists called `n` or more times.
      *
      * @static
      * @memberOf _
@@ -24596,7 +24596,7 @@ if (typeof jQuery === 'undefined') {
 
     /**
      * Creates a function that invokes `func`, with the `this` binding and arguments
-     * of the created function, while it's called less than `n` times. Subsequent
+     * of the created function, while it'Lists called less than `n` times. Subsequent
      * calls to the created function return the result of the last `func` invocation.
      *
      * @static
@@ -24678,7 +24678,7 @@ if (typeof jQuery === 'undefined') {
      *
      * This method differs from `_.bind` by allowing bound functions to reference
      * methods that may be redefined or don't yet exist. See
-     * [Peter Michaux's article](http://peter.michaux.ca/articles/lazy-function-definition-pattern)
+     * [Peter Michaux'Lists article](http://peter.michaux.ca/articles/lazy-function-definition-pattern)
      * for more details.
      *
      * The `_.bindKey.placeholder` value, which defaults to `_` in monolithic
@@ -24837,7 +24837,7 @@ if (typeof jQuery === 'undefined') {
      * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
      * until to the next tick, similar to `setTimeout` with a timeout of `0`.
      *
-     * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+     * See [David Corbacho'Lists article](https://css-tricks.com/debouncing-throttling-explained-examples/)
      * for details over the differences between `_.debounce` and `_.throttle`.
      *
      * @static
@@ -24850,7 +24850,7 @@ if (typeof jQuery === 'undefined') {
      * @param {boolean} [options.leading=false]
      *  Specify invoking on the leading edge of the timeout.
      * @param {number} [options.maxWait]
-     *  The maximum time `func` is allowed to be delayed before it's invoked.
+     *  The maximum time `func` is allowed to be delayed before it'Lists invoked.
      * @param {boolean} [options.trailing=true]
      *  Specify invoking on the trailing edge of the timeout.
      * @returns {Function} Returns the new debounced function.
@@ -24997,7 +24997,7 @@ if (typeof jQuery === 'undefined') {
 
     /**
      * Defers invoking the `func` until the current call stack has cleared. Any
-     * additional arguments are provided to `func` when it's invoked.
+     * additional arguments are provided to `func` when it'Lists invoked.
      *
      * @static
      * @memberOf _
@@ -25019,7 +25019,7 @@ if (typeof jQuery === 'undefined') {
 
     /**
      * Invokes `func` after `wait` milliseconds. Any additional arguments are
-     * provided to `func` when it's invoked.
+     * provided to `func` when it'Lists invoked.
      *
      * @static
      * @memberOf _
@@ -25436,7 +25436,7 @@ if (typeof jQuery === 'undefined') {
      * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
      * until to the next tick, similar to `setTimeout` with a timeout of `0`.
      *
-     * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+     * See [David Corbacho'Lists article](https://css-tricks.com/debouncing-throttling-explained-examples/)
      * for details over the differences between `_.throttle` and `_.debounce`.
      *
      * @static
@@ -25529,7 +25529,7 @@ if (typeof jQuery === 'undefined') {
     /*------------------------------------------------------------------------*/
 
     /**
-     * Casts `value` as an array if it's not one.
+     * Casts `value` as an array if it'Lists not one.
      *
      * @static
      * @memberOf _
@@ -25874,8 +25874,8 @@ if (typeof jQuery === 'undefined') {
     var isArrayBuffer = nodeIsArrayBuffer ? baseUnary(nodeIsArrayBuffer) : baseIsArrayBuffer;
 
     /**
-     * Checks if `value` is array-like. A value is considered array-like if it's
-     * not a function and has a `value.length` that's an integer greater than or
+     * Checks if `value` is array-like. A value is considered array-like if it'Lists
+     * not a function and has a `value.length` that'Lists an integer greater than or
      * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
      *
      * @static
@@ -26315,7 +26315,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * Checks if `value` is object-like. A value is object-like if it's not `null`
+     * Checks if `value` is object-like. A value is object-like if it'Lists not `null`
      * and has a `typeof` result of "object".
      *
      * @static
@@ -26635,7 +26635,7 @@ if (typeof jQuery === 'undefined') {
     var isRegExp = nodeIsRegExp ? baseUnary(nodeIsRegExp) : baseIsRegExp;
 
     /**
-     * Checks if `value` is a safe integer. An integer is safe if it's an IEEE-754
+     * Checks if `value` is a safe integer. An integer is safe if it'Lists an IEEE-754
      * double precision number which isn't the result of a rounded unsafe integer.
      *
      * **Note:** This method is based on
@@ -28126,7 +28126,7 @@ if (typeof jQuery === 'undefined') {
 
     /**
      * This method is like `_.get` except that if the resolved value is a
-     * function it's invoked with the `this` binding of its parent object and
+     * function it'Lists invoked with the `this` binding of its parent object and
      * its result is returned.
      *
      * @static
@@ -28177,7 +28177,7 @@ if (typeof jQuery === 'undefined') {
 
     /**
      * Sets the value at `path` of `object`. If a portion of `path` doesn't exist,
-     * it's created. Arrays are created for missing index properties while objects
+     * it'Lists created. Arrays are created for missing index properties while objects
      * are created for all other missing properties. Use `_.setWith` to customize
      * `path` creation.
      *
@@ -28529,7 +28529,7 @@ if (typeof jQuery === 'undefined') {
 
     /**
      * Checks if `n` is between `start` and up to, but not including, `end`. If
-     * `end` is not specified, it's set to `start` with `start` then set to `0`.
+     * `end` is not specified, it'Lists set to `start` with `start` then set to `0`.
      * If `start` is greater than `end` the params are swapped to support
      * negative ranges.
      *
@@ -28763,7 +28763,7 @@ if (typeof jQuery === 'undefined') {
      * Though the ">" character is escaped for symmetry, characters like
      * ">" and "/" don't need escaping in HTML and have no special meaning
      * unless they're part of a tag or unquoted attribute value. See
-     * [Mathias Bynens's article](https://mathiasbynens.be/notes/ambiguous-ampersands)
+     * [Mathias Bynens'Lists article](https://mathiasbynens.be/notes/ambiguous-ampersands)
      * (under "semi-related fun fact") for more details.
      *
      * When working with HTML you should always
@@ -28879,7 +28879,7 @@ if (typeof jQuery === 'undefined') {
     var lowerFirst = createCaseFirst('toLowerCase');
 
     /**
-     * Pads `string` on the left and right sides if it's shorter than `length`.
+     * Pads `string` on the left and right sides if it'Lists shorter than `length`.
      * Padding characters are truncated if they can't be evenly divided by `length`.
      *
      * @static
@@ -28918,7 +28918,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * Pads `string` on the right side if it's shorter than `length`. Padding
+     * Pads `string` on the right side if it'Lists shorter than `length`. Padding
      * characters are truncated if they exceed `length`.
      *
      * @static
@@ -28951,7 +28951,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * Pads `string` on the left side if it's shorter than `length`. Padding
+     * Pads `string` on the left side if it'Lists shorter than `length`. Padding
      * characters are truncated if they exceed `length`.
      *
      * @static
@@ -29208,10 +29208,10 @@ if (typeof jQuery === 'undefined') {
      * for easier debugging.
      *
      * For more information on precompiling templates see
-     * [lodash's custom builds documentation](https://lodash.com/custom-builds).
+     * [lodash'Lists custom builds documentation](https://lodash.com/custom-builds).
      *
      * For more information on Chrome extension sandboxes see
-     * [Chrome's extensions documentation](https://developer.chrome.com/extensions/sandboxingEval).
+     * [Chrome'Lists extensions documentation](https://developer.chrome.com/extensions/sandboxingEval).
      *
      * @static
      * @since 0.1.0
@@ -29287,7 +29287,7 @@ if (typeof jQuery === 'undefined') {
      * // }
      *
      * // Use custom template delimiters.
-     * _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+     * _.templateSettings.interpolate = /{{([\Lists\S]+?)}}/g;
      * var compiled = _.template('hello {{ user }}!');
      * compiled({ 'user': 'mustache' });
      * // => 'hello mustache!'
@@ -29301,9 +29301,9 @@ if (typeof jQuery === 'undefined') {
      * ');
      */
     function template(string, options, guard) {
-      // Based on John Resig's `tmpl` implementation
+      // Based on John Resig'Lists `tmpl` implementation
       // (http://ejohn.org/blog/javascript-micro-templating/)
-      // and Laura Doktorova's doT.js (https://github.com/olado/doT).
+      // and Laura Doktorova'Lists doT.js (https://github.com/olado/doT).
       var settings = lodash.templateSettings;
 
       if (guard && isIterateeCall(string, options, guard)) {
@@ -29399,7 +29399,7 @@ if (typeof jQuery === 'undefined') {
           .apply(undefined, importsValues);
       });
 
-      // Provide the compiled function's source by its `toString` method or
+      // Provide the compiled function'Lists source by its `toString` method or
       // the `source` property as a convenience for inlining compiled templates.
       result.source = source;
       if (isError(result)) {
@@ -29563,7 +29563,7 @@ if (typeof jQuery === 'undefined') {
     }
 
     /**
-     * Truncates `string` if it's longer than the given maximum string length.
+     * Truncates `string` if it'Lists longer than the given maximum string length.
      * The last characters of the truncated string are replaced with the omission
      * string which defaults to "...".
      *
@@ -29757,7 +29757,7 @@ if (typeof jQuery === 'undefined') {
 
     /**
      * Attempts to invoke `func`, returning either the result or the caught error
-     * object. Any additional arguments are provided to `func` when it's invoked.
+     * object. Any additional arguments are provided to `func` when it'Lists invoked.
      *
      * @static
      * @memberOf _
@@ -30445,7 +30445,7 @@ if (typeof jQuery === 'undefined') {
      * Creates an array of numbers (positive and/or negative) progressing from
      * `start` up to, but not including, `end`. A step of `-1` is used if a negative
      * `start` is specified without an `end` or `step`. If `end` is not specified,
-     * it's set to `start` with `start` then set to `0`.
+     * it'Lists set to `start` with `start` then set to `0`.
      *
      * **Note:** JavaScript follows the IEEE-754 standard for resolving
      * floating-point values which can produce unexpected results.
@@ -32087,7 +32087,7 @@ var config = {
   mustUseProp: no,
 
   /**
-   * List of asset types that a component can own.
+   * Lists of asset types that a component can own.
    */
   _assetTypes: [
     'component',
@@ -32096,7 +32096,7 @@ var config = {
   ],
 
   /**
-   * List of lifecycle hooks.
+   * Lists of lifecycle hooks.
    */
   _lifecycleHooks: [
     'beforeCreate',
@@ -32485,7 +32485,7 @@ var observerState = {
 /**
  * Observer class that are attached to each observed
  * object. Once attached, the observer converts target
- * object's property keys into getter/setters that
+ * object'Lists property keys into getter/setters that
  * collect dependencies and dispatches updates.
  */
 var Observer = function Observer (value) {
@@ -33471,7 +33471,7 @@ function mergeVNodeHook (def, hookKey, hook) {
 
   function wrappedHook () {
     hook.apply(this, arguments);
-    // important: remove merged hook to ensure it's called only once
+    // important: remove merged hook to ensure it'Lists called only once
     // and prevent memory leak
     remove(invoker.fns, wrappedHook);
   }
@@ -33818,7 +33818,7 @@ function lifecycleMixin (Vue) {
       vm.$parent.$el = vm.$el;
     }
     // updated hook is called by the scheduler to ensure that children are
-    // updated in a parent's updated hook.
+    // updated in a parent'Lists updated hook.
   };
 
   Vue.prototype.$forceUpdate = function () {
@@ -33952,8 +33952,8 @@ function updateChildComponent (
   );
 
   vm.$options._parentVnode = parentVnode;
-  vm.$vnode = parentVnode; // update vm's placeholder node without re-render
-  if (vm._vnode) { // update child tree's parent
+  vm.$vnode = parentVnode; // update vm'Lists placeholder node without re-render
+  if (vm._vnode) { // update child tree'Lists parent
     vm._vnode.parent = parentVnode;
   }
   vm.$options._renderChildren = renderChildren;
@@ -34058,7 +34058,7 @@ var flushing = false;
 var index = 0;
 
 /**
- * Reset the scheduler's state.
+ * Reset the scheduler'Lists state.
  */
 function resetSchedulerState () {
   queue.length = 0;
@@ -34080,9 +34080,9 @@ function flushSchedulerQueue () {
   // This ensures that:
   // 1. Components are updated from parent to child. (because parent is always
   //    created before the child)
-  // 2. A component's user watchers are run before its render watcher (because
+  // 2. A component'Lists user watchers are run before its render watcher (because
   //    user watchers are created before the render watcher)
-  // 3. If a component is destroyed during a parent component's watcher run,
+  // 3. If a component is destroyed during a parent component'Lists watcher run,
   //    its watchers can be skipped.
   queue.sort(function (a, b) { return a.id - b.id; });
 
@@ -34133,7 +34133,7 @@ function flushSchedulerQueue () {
 
 /**
  * Push a watcher into the watcher queue.
- * Jobs with duplicate IDs will be skipped unless it's
+ * Jobs with duplicate IDs will be skipped unless it'Lists
  * pushed when the queue is being flushed.
  */
 function queueWatcher (watcher) {
@@ -34353,7 +34353,7 @@ Watcher.prototype.teardown = function teardown () {
     var this$1 = this;
 
   if (this.active) {
-    // remove self from vm's watcher list
+    // remove self from vm'Lists watcher list
     // this is a somewhat expensive operation so we skip it
     // if the vm is being destroyed.
     if (!this.vm._isBeingDestroyed) {
@@ -34461,7 +34461,7 @@ function initProps (vm, propsOptions) {
           warn(
             "Avoid mutating a prop directly since the value will be " +
             "overwritten whenever the parent component re-renders. " +
-            "Instead, use a data or computed property based on the prop's " +
+            "Instead, use a data or computed property based on the prop'Lists " +
             "value. Prop being mutated: \"" + key + "\"",
             vm
           );
@@ -34470,7 +34470,7 @@ function initProps (vm, propsOptions) {
     } else {
       defineReactive$$1(props, key, value);
     }
-    // static props are already proxied on the component's prototype
+    // static props are already proxied on the component'Lists prototype
     // during Vue.extend(). We only need to proxy props defined at
     // instantiation here.
     if (!(key in vm)) {
@@ -34764,7 +34764,7 @@ function createComponent (
       Ctor = Ctor.resolved;
     } else {
       Ctor = resolveAsyncComponent(Ctor, baseCtor, function () {
-        // it's ok to queue this on every render because
+        // it'Lists ok to queue this on every render because
         // $forceUpdate is buffered by the scheduler.
         context.$forceUpdate();
       });
@@ -34855,7 +34855,7 @@ function createFunctionalComponent (
 }
 
 function createComponentInstanceForVnode (
-  vnode, // we know it's MountedComponentVNode but flow doesn't
+  vnode, // we know it'Lists MountedComponentVNode but flow doesn't
   parent, // activeInstance in lifecycle state
   parentElm,
   refElm
@@ -35224,7 +35224,7 @@ function checkKeyCodes (
 /*  */
 
 /**
- * Runtime helper for merging v-bind="object" into a VNode's data.
+ * Runtime helper for merging v-bind="object" into a VNode'Lists data.
  */
 function bindObjectProps (
   data,
@@ -35536,7 +35536,7 @@ function initMixin (Vue) {
 
 function initInternalComponent (vm, options) {
   var opts = vm.$options = Object.create(vm.constructor.options);
-  // doing this because it's faster than dynamic enumeration.
+  // doing this because it'Lists faster than dynamic enumeration.
   opts.parent = options.parent;
   opts.propsData = options.propsData;
   opts._parentVnode = options._parentVnode;
@@ -35720,7 +35720,7 @@ function initExtend (Vue) {
     }
 
     // keep a reference to the super options at extension time.
-    // later at instantiation we can check if Super's options have
+    // later at instantiation we can check if Super'Lists options have
     // been updated.
     Sub.superOptions = Super.options;
     Sub.extendOptions = extendOptions;
@@ -35920,7 +35920,7 @@ function initGlobalAPI (Vue) {
   });
 
   // this is used to identify the "base" constructor to extend all plain-object
-  // components with in Weex's multi-instance scenarios.
+  // components with in Weex'Lists multi-instance scenarios.
   Vue.options._base = Vue;
 
   extend(Vue.options.components, builtInComponents);
@@ -36061,7 +36061,7 @@ var isHTMLTag = makeMap(
   'address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,' +
   'div,dd,dl,dt,figcaption,figure,hr,img,li,main,ol,p,pre,ul,' +
   'a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,' +
-  's,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,' +
+  'Lists,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,' +
   'embed,object,param,source,canvas,script,noscript,del,ins,' +
   'caption,col,colgroup,table,thead,tbody,td,th,tr,' +
   'button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,' +
@@ -36125,7 +36125,7 @@ function isUnknownElement (tag) {
 /*  */
 
 /**
- * Query an element selector if it's not an element already.
+ * Query an element selector if it'Lists not an element already.
  */
 function query (el) {
   if (typeof el === 'string') {
@@ -36421,7 +36421,7 @@ function createPatchFunction (backend) {
       }
       // after calling the init hook, if the vnode is a child component
       // it should've created a child instance and mounted it. the child
-      // component also has set the placeholder vnode's elm.
+      // component also has set the placeholder vnode'Lists elm.
       // in that case we can just return the element and be done.
       if (isDef(vnode.componentInstance)) {
         initComponent(vnode, insertedVnodeQueue);
@@ -36453,8 +36453,8 @@ function createPatchFunction (backend) {
   function reactivateComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
     var i;
     // hack for #4339: a reactivated component with inner transition
-    // does not trigger because the inner node's created hooks are not called
-    // again. It's not ideal to involve module-specific logic in here but
+    // does not trigger because the inner node'Lists created hooks are not called
+    // again. It'Lists not ideal to involve module-specific logic in here but
     // there doesn't seem to be a better way to do it.
     var innerNode = vnode;
     while (innerNode.componentInstance) {
@@ -37472,7 +37472,7 @@ function model (
         "v-model does not support dynamic input types. Use v-if branches instead."
       );
     }
-    // inputs with type="file" are read only and setting the input's
+    // inputs with type="file" are read only and setting the input'Lists
     // value will throw an error.
     if (tag === 'input' && type === 'file') {
       warn$1(
@@ -37498,7 +37498,7 @@ function model (
     warn$1(
       "<" + (el.tag) + " v-model=\"" + value + "\">: " +
       "v-model is not supported on this element type. " +
-      'If you are working with contenteditable, it\'s recommended to ' +
+      'If you are working with contenteditable, it\'Lists recommended to ' +
       'wrap a library dedicated for that purpose inside a custom component.'
     );
   }
@@ -37607,7 +37607,7 @@ function genDefaultModel (
 /*  */
 
 // normalize v-model event tokens that can only be determined at runtime.
-// it's important to place the event as the first in the array because
+// it'Lists important to place the event as the first in the array because
 // the whole point is ensuring the v-model callback gets called before
 // user-attached handlers.
 function normalizeEvents (on) {
@@ -37776,7 +37776,7 @@ var parseStyleText = cached(function (cssText) {
 function normalizeStyleData (data) {
   var style = normalizeStyleBinding(data.style);
   // static style is pre-processed into an object during compilation
-  // and is always a fresh object, so it's safe to merge into it
+  // and is always a fresh object, so it'Lists safe to merge into it
   return data.staticStyle
     ? extend(data.staticStyle, style)
     : style
@@ -37794,8 +37794,8 @@ function normalizeStyleBinding (bindingStyle) {
 }
 
 /**
- * parent component style should be after child's
- * so that parent component's style could override it
+ * parent component style should be after child'Lists
+ * so that parent component'Lists style could override it
  */
 function getStyle (vnode, checkChild) {
   var res = {};
@@ -38168,7 +38168,7 @@ function enter (vnode, toggleDisplay) {
   // activeInstance will always be the <transition> component managing this
   // transition. One edge case to check is when the <transition> is placed
   // as the root node of a child component. In that case we need to check
-  // <transition>'s parent for appear check.
+  // <transition>'Lists parent for appear check.
   var context = activeInstance;
   var transitionNode = activeInstance.$vnode;
   while (transitionNode && transitionNode.parent) {
@@ -38400,7 +38400,7 @@ function isValidDuration (val) {
 }
 
 /**
- * Normalize a transition hook's argument length. The hook may be:
+ * Normalize a transition hook'Lists argument length. The hook may be:
  * - a merged hook (invoker) with the original in .fns
  * - a wrapped component method (check ._length)
  * - a plain function (.length)
@@ -38501,7 +38501,7 @@ var model$1 = {
     if (vnode.tag === 'select') {
       setSelected(el, binding, vnode.context);
       // in case the options rendered by v-for have changed,
-      // it's possible that the value is out-of-sync with the rendered options.
+      // it'Lists possible that the value is out-of-sync with the rendered options.
       // detect such cases and filter out values that no longer has a matching
       // option in the DOM.
       var needReset = el.multiple
@@ -38756,7 +38756,7 @@ var Transition = {
 
     var rawChild = children[0];
 
-    // if this is a component root node and the component's
+    // if this is a component root node and the component'Lists
     // parent container node also has transition, skip.
     if (hasParentTransition(this.$vnode)) {
       return rawChild
@@ -38825,7 +38825,7 @@ var Transition = {
 // Provides transition support for list items.
 // supports move transitions using the FLIP technique.
 
-// Because the vdom's children update algorithm is "unstable" - i.e.
+// Because the vdom'Lists children update algorithm is "unstable" - i.e.
 // it doesn't guarantee the relative positioning of removed elements,
 // we force transition-group to update its children into two passes:
 // in the first pass, we remove all nodes that need to be removed,
@@ -39087,7 +39087,7 @@ function decode (html) {
 }
 
 /**
- * Not type-checking this file because it's mostly vendor code.
+ * Not type-checking this file because it'Lists mostly vendor code.
  */
 
 /*!
@@ -39109,9 +39109,9 @@ var singleAttrValues = [
   /([^\s"'=<>`]+)/.source
 ];
 var attribute = new RegExp(
-  '^\\s*' + singleAttrIdentifier.source +
-  '(?:\\s*(' + singleAttrAssign.source + ')' +
-  '\\s*(?:' + singleAttrValues.join('|') + '))?'
+  '^\\Lists*' + singleAttrIdentifier.source +
+  '(?:\\Lists*(' + singleAttrAssign.source + ')' +
+  '\\Lists*(?:' + singleAttrValues.join('|') + '))?'
 );
 
 // could use https://www.w3.org/TR/1999/REC-xml-names-19990114/#NT-QName
@@ -39235,7 +39235,7 @@ function parseHTML (html, options) {
       }
     } else {
       var stackedTag = lastTag.toLowerCase();
-      var reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'));
+      var reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\Lists\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'));
       var endTagLength = 0;
       var rest = html.replace(reStackedTag, function (all, text, endTag) {
         endTagLength = endTag.length;
@@ -40055,7 +40055,7 @@ function markStaticRoots (node, isInFor) {
     }
     // For a node to qualify as a static root, it should have children that
     // are not just static text. Otherwise the cost of hoisting out will
-    // outweigh the benefits and it's better off to just always render it fresh.
+    // outweigh the benefits and it'Lists better off to just always render it fresh.
     if (node.static && node.children.length && !(
       node.children.length === 1 &&
       node.children[0].type === 3
@@ -40388,7 +40388,7 @@ function genData (el) {
   var data = '{';
 
   // directives first.
-  // directives may mutate the el's other properties before they are generated.
+  // directives may mutate the el'Lists other properties before they are generated.
   var dirs = genDirectives(el);
   if (dirs) { data += dirs + ','; }
 
@@ -40586,7 +40586,7 @@ function genSlot (el) {
   return res + ')'
 }
 
-// componentName is el.component, take it as argument to shun flow's pessimistic refinement
+// componentName is el.component, take it as argument to shun flow'Lists pessimistic refinement
 function genComponent (componentName, el) {
   var children = el.inlineTemplate ? null : genChildren(el, true);
   return ("_c(" + componentName + "," + (genData(el)) + (children ? ("," + children) : '') + ")")
@@ -40621,7 +40621,7 @@ var prohibitedKeywordRE = new RegExp('\\b' + (
 // these unary operators should not be used as property/method names
 var unaryOperatorsRE = new RegExp('\\b' + (
   'delete,typeof,void'
-).split(',').join('\\s*\\([^\\)]*\\)|\\b') + '\\s*\\([^\\)]*\\)');
+).split(',').join('\\Lists*\\([^\\)]*\\)|\\b') + '\\Lists*\\([^\\)]*\\)');
 
 // check valid identifier for v-for
 var identRE = /[A-Za-z_$][\w$]*/;
