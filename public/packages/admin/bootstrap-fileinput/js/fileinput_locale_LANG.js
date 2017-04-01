@@ -40,7 +40,7 @@
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',
         msgSelected: '{n} {files} selected',
-        msgFoldersNotAllowed: 'Drag & drop files only! Skipped {n} dropped folder(s).',
+        msgFoldersNotAllowed: 'Drag & drop files only! Skipped {n} dropped folder(Lists).',
         msgImageWidthSmall: 'Width of image file "{name}" must be at least {size} px.',
         msgImageHeightSmall: 'Height of image file "{name}" must be at least {size} px.',
         msgImageWidthLarge: 'Width of image file "{name}" cannot exceed {size} px.',
