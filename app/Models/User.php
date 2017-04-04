@@ -80,4 +80,8 @@ class User extends Authenticatable
         return self::create($where);
     }
 
+    public function eduBasicInfo(){
+        return $this->hasOne('App\Models\EduUserBasicInfo');
+    }
+
 }

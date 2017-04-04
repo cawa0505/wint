@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEduUserExamsTable extends Migration
+class CreateEduCoursetakesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateEduUserExamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('edu_user_exams', function (Blueprint $table) {
+        Schema::create('edu_coursetakes', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('exam_id');
-            $table->string('year',4)->comment('年份');
-            $table->string('term',2)->comment('季别');
-            $table->string('remark');
+            $table->unsignedInteger('course_id');
+            $table->tinyInteger('status')->comment('0未中签 1已中签');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('exam_id')->references('id')->on('edu_exams');
+            $table->foreign('course_id')->references('id')->on('edu_courses');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ class CreateEduUserExamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('edu_user_examms');
+        Schema::dropIfExists('edu_coursetakes');
     }
 }

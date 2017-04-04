@@ -17,6 +17,7 @@ class CreateListCollegesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->unsignedInteger('university_id');
+            $table->timestamps();
             $table->foreign('university_id')->references('id')->on('list_universities');
             $table->index('university_id');
             $table->unique(['name','university_id']);

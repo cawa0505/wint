@@ -2,9 +2,7 @@
 
 namespace App\Admin\Controllers\Lists;
 
-use App\Http\Controllers\ChinaAreaController;
 use App\Models\ListUniversity;
-
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Facades\Admin;

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EduSchoolInfo extends Model
-{
-    //
+class BaseModel extends Model{
+
 }

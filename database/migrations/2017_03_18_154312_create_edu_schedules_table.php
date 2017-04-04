@@ -17,8 +17,6 @@ class CreateEduSchedulesTable extends Migration
             //必须有一个上课时间排表的概念，定义 某节课在什么时间以什么方式上，课堂去对应学生
             $table->increments('id');
             $table->unsignedInteger('course_id');
-            $table->unsignedInteger('year');
-            $table->string('term',2);
             $table->unsignedInteger('start_week')->comment('开始周');
             $table->unsignedInteger('end_week')->comment('结束周');
             $table->unsignedInteger('turning')->comment('0正常，1单周，2双周');
@@ -27,6 +25,9 @@ class CreateEduSchedulesTable extends Migration
             $table->unsignedInteger('duration')->comment('上课时长，单位节数');
             $table->unsignedInteger('teacher_id');
             $table->unsignedInteger('classroom_id')->comment('上课教室id');
+            $table->foreign('course_id')->references('id')->on('edu_courses');
+            $table->foreign('teacher_id')->references('id')->on('edu_teachers');
+            $table->foreign('classroom_id')->references('id')->on('list_classrooms');
             $table->timestamps();
         });
     }
