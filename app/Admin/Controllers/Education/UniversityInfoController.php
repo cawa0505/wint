@@ -77,8 +77,7 @@ class UniversityInfoController extends Controller
             $grid->id('ID')->sortable();
             $grid->university()->name('学校名称');
             $grid->website('学校官网');
-            $grid->function_list('功能列表');
-            $grid->function_content('详细内容');
+            $grid->functions('功能');
             $grid->new_term('开学日期');
             $grid->created_at('创建时间');
             $grid->updated_at('更新时间');
@@ -97,8 +96,7 @@ class UniversityInfoController extends Controller
             $form->display('id', 'ID');
             $form->select('university_id','学校')->options(ListUniversity::pluck('name','id'));
             $form->url('website','官方网址');
-            $form->editor('function_list','功能列表');
-            $form->editor('function_content','功能详细说明');
+            $form->editor('functions','功能');
             $form->date('new_term','开学日期');
             $form->display('created_at', '创建时间');
             $form->display('updated_at', '更新时间');
