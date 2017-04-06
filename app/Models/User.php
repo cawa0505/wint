@@ -6,6 +6,36 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $name 登录用户名
+ * @property string $phone
+ * @property string $email
+ * @property string $password
+ * @property string $remember_token
+ * @property string $last_login_time
+ * @property string $last_login_ip
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
+ * @property-read \App\Models\EduUserBasicInfo $eduBasicInfo
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User normal()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereLastLoginIp($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereLastLoginTime($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePassword($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePhone($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
@@ -32,7 +62,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * @param $username 用户名，可能是邮箱，手机或普通用户
+     * @param $username string 用户名，可能是邮箱，手机或普通用户
      * @return mixed
      */
     public function findForPassport($username){
@@ -50,7 +80,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $query
+     * @param $query User
      * @return mixed
      */
     public function scopeNormal($query){
@@ -59,7 +89,7 @@ class User extends Authenticatable
 
     /**
      * @param $data
-     * @return bool
+     * @return mixed
      */
     public function register($data){
         $username=$data['username'];

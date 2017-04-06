@@ -3,8 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\ListProvince
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $code
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ListCity[] $city
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ListProvince whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ListProvince whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ListProvince whereName($value)
+ * @mixin \Eloquent
+ */
 class ListProvince extends Model
 {
     public function city(){

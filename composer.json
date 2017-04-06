@@ -16,6 +16,7 @@
         "toplan/laravel-sms": "dev-master"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.3",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.7"
@@ -46,6 +47,8 @@
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan clear-compiled",
+            "php artisan ide-helper:generate",
             "php artisan optimize"
         ]
     },
