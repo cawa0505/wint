@@ -89,7 +89,19 @@ class EduUserBasicInfo extends BaseModel
      * 此方法是核心。。获取并初始化用户的所有数据
      */
     public function init($uid){
+        //获取本次所用的全部cookie
+        $jar=self::login($uid);
+        //获取当前年月及学期
+        $year=date('Y',time());
+        $term=date('m')>1&&date('m'<7)?'S':'A';
 
+    }
+
+    /**
+     * @param $uid integer 重新初始化 就是执行init
+     */
+    public function reInit($uid){
+        return $this->init($uid);
     }
 
 }
