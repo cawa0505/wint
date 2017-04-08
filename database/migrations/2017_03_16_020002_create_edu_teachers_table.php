@@ -17,7 +17,8 @@ class CreateEduTeachersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->tinyInteger('sex')->comment('性别');
-
+            $table->unsignedInteger('college_id')->comment('所属学院');
+            $table->foreign('college_id')->references('list_colleges')->on('id');
             $table->timestamps();
         });
     }

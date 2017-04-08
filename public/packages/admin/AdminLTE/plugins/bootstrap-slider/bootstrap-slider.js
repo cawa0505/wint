@@ -490,7 +490,7 @@
 					INSTANCE PROPERTIES/METHODS
 
 		- Any methods bound to the prototype are considered 
-		part of the plugin's `public` interface
+		part of the plugin'Lists `public` interface
 
 		**************************************************/
 		Slider.prototype = {
@@ -1108,7 +1108,7 @@
 
 				for(var i = 0; i < classes.length; i++) {
 					var classTag = classes[i];
-					var regex = new RegExp("(?:\\s|^)" + classTag + "(?:\\s|$)");
+					var regex = new RegExp("(?:\\Lists|^)" + classTag + "(?:\\Lists|$)");
 					newClasses = newClasses.replace(regex, " ");
 				}
 
@@ -1120,7 +1120,7 @@
 
 				for(var i = 0; i < classes.length; i++) {
 					var classTag = classes[i];
-					var regex = new RegExp("(?:\\s|^)" + classTag + "(?:\\s|$)");
+					var regex = new RegExp("(?:\\Lists|^)" + classTag + "(?:\\Lists|$)");
 					var ifClassExists = regex.test(newClasses);
 					
 					if(!ifClassExists) {

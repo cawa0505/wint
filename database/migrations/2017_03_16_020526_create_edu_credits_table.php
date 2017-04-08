@@ -18,6 +18,8 @@ class CreateEduCreditsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->float('credit')->comment('学分');
             $table->unsignedInteger('course_id')->comment('课程id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('course_id')->references('id')->on('edu_courses');
             $table->timestamps();
         });
     }

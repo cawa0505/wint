@@ -212,7 +212,7 @@
     /* Decide if unknown protocols are okay */
     var ALLOW_UNKNOWN_PROTOCOLS = false;
 
-    /* Output should be safe for jQuery's $() factory? */
+    /* Output should be safe for jQuery'Lists $() factory? */
     var SAFE_FOR_JQUERY = false;
 
     /* Output should be safe for common template engines.
@@ -438,7 +438,7 @@
             return true;
         }
 
-        /* Now let's check the element's type and name */
+        /* Now let'Lists check the element'Lists type and name */
         tagName = currentNode.nodeName.toLowerCase();
 
         /* Execute a hook if present */
@@ -467,7 +467,7 @@
 
         /* Sanitize element content to be template-safe */
         if (SAFE_FOR_TEMPLATES && currentNode.nodeType === 3) {
-            /* Get the element's text content */
+            /* Get the element'Lists text content */
             content = currentNode.textContent;
             content = content.replace(MUSTACHE_EXPR, ' ');
             content = content.replace(ERB_EXPR, ' ');
@@ -483,7 +483,7 @@
     var DATA_ATTR = /^data-[\w.\u00B7-\uFFFF-]/;
     var IS_ALLOWED_URI = /^(?:(?:(?:f|ht)tps?|mailto|tel):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i;
     var IS_SCRIPT_OR_DATA = /^(?:\w+script|data):/i;
-    /* This needs to be extensive thanks to Webkit/Blink's behavior */
+    /* This needs to be extensive thanks to Webkit/Blink'Lists behavior */
     var ATTR_WHITESPACE = /[\x00-\x20\xA0\u1680\u180E\u2000-\u2029\u205f\u3000]/g;
 
     /**
@@ -583,7 +583,7 @@
                 /* Allow potentially valid data-* attributes:
                  * At least one character after "-" (https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes)
                  * XML-compatible (https://html.spec.whatwg.org/multipage/infrastructure.html#xml-compatible and http://www.w3.org/TR/xml/#d0e804)
-                 * We don't need to check the value; it's always URI safe.
+                 * We don't need to check the value; it'Lists always URI safe.
                  */
                  (ALLOW_DATA_ATTR && DATA_ATTR.test(lcName)) ||
                  /* Allow unknown protocols:
@@ -642,7 +642,7 @@
      * _executeHook
      * Execute user configurable hooks
      *
-     * @param  {String} entryPoint  Name of the hook's entry point
+     * @param  {String} entryPoint  Name of the hook'Lists entry point
      * @param  {Node} currentNode
      */
     var _executeHook = function(entryPoint, currentNode, data) {
@@ -709,7 +709,7 @@
         /* Now start iterating over the created document */
         while ( (currentNode = nodeIterator.nextNode()) ) {
 
-            /* Fix IE's strange behavior with manipulated textNodes #89 */
+            /* Fix IE'Lists strange behavior with manipulated textNodes #89 */
             if (currentNode.nodeType === 3 && currentNode === oldNode) {
                 continue;
             }

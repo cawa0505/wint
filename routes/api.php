@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::group(['middleware' => 'auth:api','domain'=>'api.'.env('APP_URL'),'prefix'=>'api'],function(){
-
+Route::post('register','Api\RegisterController@register');
+Route::group(['middleware' => 'auth:api','namespace'=>'Api'],function(){
+    Route::resource('EduUserBasicInfo','EduUserBasicInfoController');
 });
+

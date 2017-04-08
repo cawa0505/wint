@@ -23,7 +23,7 @@
 //             $(container).html(xhr.responseBody)
 //             (default: current jquery context)
 //      push - Whether to pushState the URL. Defaults to true (of course).
-//   replace - Want to use replaceState instead? That's cool.
+//   replace - Want to use replaceState instead? That'Lists cool.
 //
 // For convenience the second parameter can be either the container or
 // the options object.
@@ -151,7 +151,7 @@ function handleSubmit(event, container, options) {
 }
 
 // Loads a URL with ajax, puts the response body inside a container,
-// then pushState()'s the loaded URL.
+// then pushState()'Lists the loaded URL.
 //
 // Works just like $.ajax in that it accepts a jQuery ajax
 // settings object (with keys like url, type, data, etc).
@@ -161,7 +161,7 @@ function handleSubmit(event, container, options) {
 // container - Where to stick the response body.
 //             $(container).html(xhr.responseBody)
 //      push - Whether to pushState the URL. Defaults to true (of course).
-//   replace - Want to use replaceState instead? That's cool.
+//   replace - Want to use replaceState instead? That'Lists cool.
 //
 // Use it just like $.ajax:
 //
@@ -707,8 +707,8 @@ function extractContainer(data, xhr, options) {
   if ($body.length === 0)
     return obj
 
-  // If there's a <title> tag in the header, use it as
-  // the page's title.
+  // If there'Lists a <title> tag in the header, use it as
+  // the page'Lists title.
   obj.title = findAll($head, 'title').last().text()
 
   if (options.fragment) {
@@ -723,7 +723,7 @@ function extractContainer(data, xhr, options) {
     if ($fragment.length) {
       obj.contents = options.fragment === 'body' ? $fragment : $fragment.contents()
 
-      // If there's no title, look for data-title and title attributes
+      // If there'Lists no title, look for data-title and title attributes
       // on the fragment
       if (!obj.title)
         obj.title = $fragment.attr('title') || $fragment.data('title')
@@ -754,7 +754,7 @@ function extractContainer(data, xhr, options) {
 
 // Load an execute scripts using standard script request.
 //
-// Avoids jQuery's traditional $.getScript which does a XHR request and
+// Avoids jQuery'Lists traditional $.getScript which does a XHR request and
 // globalEval.
 //
 // scripts - jQuery object of script Elements
@@ -909,7 +909,7 @@ function disable() {
 }
 
 
-// Add the state property to jQuery's event object so we can use it in
+// Add the state property to jQuery'Lists event object so we can use it in
 // $(window).bind('popstate')
 if ( $.inArray('state', $.event.props) < 0 )
   $.event.props.push('state')

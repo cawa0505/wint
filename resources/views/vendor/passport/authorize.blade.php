@@ -49,7 +49,7 @@
                         <!-- Introduction -->
                         <p><strong>{{ $client->name }}</strong> is requesting permission to access your account.</p>
 
-                        <!-- Scope List -->
+                        <!-- ScsList -->
                         @if (count($scopes) > 0)
                             <div class="scopes">
                                     <p><strong>This application will be able to:</strong></p>

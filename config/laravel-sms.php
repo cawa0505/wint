@@ -64,7 +64,7 @@ return [
     |
     */
     'code' => [
-        'length'        => 4,
+        'length'        => 6,
         'validMinutes'  => 5,
         'repeatIfValid' => false,
         'maxAttempts'   => 0,
@@ -104,6 +104,7 @@ return [
     |
     */
     'templates' => [
+        'Alidayu' => ['SMS_5510398'],
     ],
 
     /*
@@ -170,7 +171,7 @@ return [
     | 运行'php artisan migrate'命令可以自动生成
     |
     */
-    'dbLogs' => false,
+    'dbLogs' => true,
 
     /*
     |--------------------------------------------------------------------------

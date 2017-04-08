@@ -768,7 +768,7 @@
 
 					_disableDraggable(dragEl);
 
-					// Remove class's
+					// Remove class'Lists
 					_toggleClass(dragEl, this.options.ghostClass, false);
 					_toggleClass(dragEl, this.options.chosenClass, false);
 
@@ -1194,7 +1194,7 @@
 			selector = selector.split('.');
 
 			var tag = selector.shift().toUpperCase(),
-				re = new RegExp('\\s(' + selector.join('|') + ')(?=\\s)', 'g');
+				re = new RegExp('\\Lists(' + selector.join('|') + ')(?=\\Lists)', 'g');
 
 			return (
 				(tag === '' || el.nodeName.toUpperCase() == tag) &&

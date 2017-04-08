@@ -18,6 +18,8 @@ class CreateEduExamsTable extends Migration
             $table->unsignedInteger('course_id')->comment('课程id');
             $table->unsignedInteger('classroom_id')->comment('教室id');
             $table->dateTime('date')->comment('考试时间');
+            $table->foreign('course_id')->references('id')->on('edu_courses');
+            $table->foreign('classroom_id')->references('id')->on('list_classrooms');
             $table->timestamps();
         });
     }

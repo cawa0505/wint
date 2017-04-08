@@ -217,7 +217,7 @@
 <script>
     export default {
         /*
-         * The component's data.
+         * The component'Lists data.
          */
         data() {
             return {

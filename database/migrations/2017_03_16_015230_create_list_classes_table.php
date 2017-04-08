@@ -17,6 +17,7 @@ class CreateListClassesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->unsignedInteger('profession_id');
+            $table->timestamps();
             $table->foreign('profession_id')->references('id')->on('list_professions');
             $table->index('profession_id');
             $table->unique(['name','profession_id']);

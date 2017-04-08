@@ -25,29 +25,23 @@ Route::get('/passport',function(){
  * 这是一个标准的获取流程 当然 cookie应由某些东西维护
  */
 Route::get('/test',function(){
-	$client = new Client([
-	    // Base URI is used with relative requests
-	    'base_uri' => 'http://jxxx.ncut.edu.cn',
-	    // You can set any number of default request options.
-	    //'timeout'  => 2.0,
-	]);
+	$client = new Client();
 	$jar = new \GuzzleHttp\Cookie\CookieJar;
-	$request=$client->post('login.asp');
 	$response = $client->request('POST', 'http://jxxx.ncut.edu.cn/login.asp', [
 		'headers'=>[
 			//'Content-Type'=>'application/x-www-form-urlencoded',
 			'User-Agent'=>'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2970.0 Safari/537.36',
-			'Accept'=>'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-			'Accept-Encoding'=>'gzip, deflate',
-			'Accept-Language'=>'zh-CN,zh;q=0.8',
-			'Cache-Control'=>'max-age=0',
-			'Connection'=>'keep-alive',
+			//'Accept'=>'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+			//'Accept-Encoding'=>'gzip, deflate',
+			//'Accept-Language'=>'zh-CN,zh;q=0.8',
+			//'Cache-Control'=>'max-age=0',
+			//'Connection'=>'keep-alive',
 			'Content-Type'=>'application/x-www-form-urlencoded',
 			//'Content-Length'=>'65',
-			'Host'=>'jxxx.ncut.edu.cn',
-			'Origin'=>'http://jxxx.ncut.edu.cn',
+			//'Host'=>'jxxx.ncut.edu.cn',
+			//'Origin'=>'http://jxxx.ncut.edu.cn',
 			'Referer'=>'http://jxxx.ncut.edu.cn/',
-			'Upgrade-Insecure-Requests'=>'1',
+			//'Upgrade-Insecure-Requests'=>'1',
 
 		],
 	    'form_params' => [
@@ -57,17 +51,17 @@ Route::get('/test',function(){
 	        'Submit.x'=>'2',
 	        'Submit.y'=>'1'
 	    ],
-	    'allow_redirects'=>false,
+	    'allow_redirects'=>true,
 	    'cookies'=>$jar
 	    //'body'=>'category=xs&uid=13101040319&passwd=202215&Submit.x=23&Submit.y=14'
 	]);
-	//var_dump($response);
+	//$content=$response->getBody();
 	//echo $response->getStatusCode();
-	var_dump($jar);
-	$response=$client->get('xs/cjkb.asp?id=5',['cookies'=>$jar]);
-	echo iconv("gbk", "utf-8", strip_tags($response->getBody(),'<td>,<tr>,<table>,<th>'));
+    $client = new Client();
+	$response=$client->get('http://jxxx.ncut.edu.cn/xs/cjkb.asp?id=5',['cookies'=>$jar]);
+	$content=$response->getBody();
+	echo strip_tags(str_replace('&nbsp;','',iconv(mb_detect_encoding($content, ['ASCII','GB2312','GBK','UTF-8']), "utf-8",$content)),'<table>,<td>,<tr>');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');

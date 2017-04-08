@@ -20,6 +20,8 @@ class CreateEduUserExamsTable extends Migration
             $table->string('year',4)->comment('年份');
             $table->string('term',2)->comment('季别');
             $table->string('remark');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('exam_id')->references('id')->on('edu_exams');
             $table->timestamps();
         });
     }
