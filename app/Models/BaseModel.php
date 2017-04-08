@@ -32,8 +32,9 @@ class BaseModel extends Model{
      * @return array status=0成功，1失败并返回失败原因，成功返回cookies为jar对象
      */
     public static function login($uid){
-        $edu_user_basic_info=EduUserBasicInfo::where('user_id','=',$uid)->value('university_id');
-        $func=self::getFuncInfo($edu_user_basic_info->id,'login');
+        $edu_user_basic_info=EduUserBasicInfo::where('user_id','=',$uid)->first();
+        $params=$edu_user_basic_info->user_auth_info;
+        $func=self::getFuncInfo($edu_user_basic_info->university_id,'login');
         if($func){
             $client = new Client();
             $jar = new CookieJar;
@@ -45,9 +46,9 @@ class BaseModel extends Model{
                     'Referer'=>$func['referer'],
                 ],
                 'form_params' => [
-                    $func['params']['category']=>$edu_user_basic_info->category,
-                    $func['params']['uid']=>$edu_user_basic_info->uid,
-                    $func['params']['password']=>$edu_user_basic_info->password,
+                    $func['params']['category']=>$params->category,
+                    $func['params']['uid']=>$params->uid,
+                    $func['params']['password']=>$params->password,
                 ],
                 'allow_redirects'=>false,
                 'cookies'=>$jar
@@ -71,7 +72,7 @@ class BaseModel extends Model{
      * @param $content string 待处理数据
      * @return mixed
      */
-    public static function dataHanding($content){
+    public function dataHanding($content){
         return strip_tags(str_replace('&nbsp;','',iconv(mb_detect_encoding($content, ['ASCII','GB2312','GBK','UTF-8']), "utf-8",$content)),'<table>,<td>,<tr>');
     }
 
@@ -92,5 +93,26 @@ class BaseModel extends Model{
         else
             $sex=1;
         return ['day'=>$week,'type'=>$sex];
+    }
+
+    /**输入课程基本信息，判断数据库里有没有，firstOrCreate
+     * @param $name
+     * @param $code
+     * @param $is_common
+     * @param $is_required
+     * @param $university_id
+     * @return int 课程id
+     */
+    public function updateCourse($name,$university_id,$is_common,$is_required,$code){
+        $data['name']=$name;
+        $data['university_id']=$university_id;
+        $data['code']=$code;
+        $data['is_common']=$is_common;
+        $data['is_required']=$is_required;
+        $result=EduCourse::firstOrCreate($data);
+        if($result)
+            return $result->id;
+        else
+            return false;
     }
 }
