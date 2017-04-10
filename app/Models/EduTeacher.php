@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\EduTeacher
@@ -19,7 +18,19 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\EduTeacher whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class EduTeacher extends Model
+class EduTeacher extends BaseModel
 {
-    //
+
+    public function university(){
+        return $this->belongsTo('App\Models\ListUniversity','university_id');
+    }
+
+    /**
+     * @param $teacher_name string
+     * @param $university_id integer
+     */
+    public static function updateTeacher($teacher_name, $university_id)
+    {
+
+    }
 }

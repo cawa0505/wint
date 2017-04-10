@@ -21,10 +21,11 @@ class BaseModel extends Model{
     public static function getFuncInfo($university_id,$type){
         $university=EduUniversityInfo::where('university_id','=',$university_id)->first();
         $func=json_decode($university->function_list,true);
-        if(!in_array($type,$func)){
+        if(!array_key_exists($type,$func)){
             return false;
         }
-        return json_decode($university->function_content,true);
+        $result=json_decode($university->function_content,true);
+        return $result[$type];
     }
 
     /**
@@ -33,8 +34,8 @@ class BaseModel extends Model{
      */
     public static function login($uid){
         $edu_user_basic_info=EduUserBasicInfo::where('user_id','=',$uid)->first();
-        $params=$edu_user_basic_info->user_auth_info;
-        $func=self::getFuncInfo($edu_user_basic_info->university_id,'login');
+        $params=json_decode($edu_user_basic_info->user_auth_info);
+        $func=self::getFuncInfo($edu_user_basic_info->classes->profession->college->university_id,'login');
         if($func){
             $client = new Client();
             $jar = new CookieJar;
@@ -50,14 +51,14 @@ class BaseModel extends Model{
                     $func['params']['uid']=>$params->uid,
                     $func['params']['password']=>$params->password,
                 ],
-                'allow_redirects'=>false,
+                'allow_redirects'=>true,
                 'cookies'=>$jar
             ]);
             if($response->getStatusCode()!='200'){
                 return ['status'=>1,'msg'=>'学校服务器出错~'];
             }
             $content=self::dataHanding($response->getBody());
-            if(preg_match($func['failed'],$content)||!isset($jar)){
+            if(preg_match('/'.$func['failed'].'/',$content)||!isset($jar)){
                 return ['status'=>1,'msg'=>'用户名密码错误~'];
             }else{
                 return ['status'=>0,'cookies'=>$jar];
@@ -68,12 +69,12 @@ class BaseModel extends Model{
         }
     }
 
-    /** 就是转编码，剔除无用字符串，留下个td tr正则用
+    /** 就是转编码，剔除无用字符串
      * @param $content string 待处理数据
      * @return mixed
      */
-    public function dataHanding($content){
-        return strip_tags(str_replace('&nbsp;','',iconv(mb_detect_encoding($content, ['ASCII','GB2312','GBK','UTF-8']), "utf-8",$content)),'<table>,<td>,<tr>');
+    public static function dataHanding($content){
+        return str_replace('&nbsp;','',iconv(mb_detect_encoding($content, ['ASCII','GB2312','GBK','UTF-8']), "utf-8",$content));
     }
 
     /**

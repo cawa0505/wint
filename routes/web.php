@@ -46,8 +46,8 @@ Route::get('/test',function(){
 		],
 	    'form_params' => [
 	        'category'=>'xs',
-	        'uid'=>'14103020114',
-	        'passwd'=>'052421',
+	        'uid'=>'13101040319',
+	        'passwd'=>'202215',
 	        'Submit.x'=>'2',
 	        'Submit.y'=>'1'
 	    ],
@@ -58,9 +58,12 @@ Route::get('/test',function(){
 	//$content=$response->getBody();
 	//echo $response->getStatusCode();
     $client = new Client();
-	$response=$client->get('http://jxxx.ncut.edu.cn/xs/cjkb.asp?id=5',['cookies'=>$jar]);
+	$response=$client->get('http://jxxx.ncut.edu.cn/xs/cjkb.asp?id=1',['cookies'=>$jar]);
 	$content=$response->getBody();
-	echo strip_tags(str_replace('&nbsp;','',iconv(mb_detect_encoding($content, ['ASCII','GB2312','GBK','UTF-8']), "utf-8",$content)),'<table>,<td>,<tr>');
+	$content=str_replace('&nbsp;','',iconv(mb_detect_encoding($content, ['ASCII','GB2312','GBK','UTF-8']), "utf-8",$content));
+	$preg = '/<A href=javascript:popup\(\'\/cx\/xskb_detail\.asp\?xh=.*?&skxq=(\d)&skdy=(\d)&nd=\d{4}&jb=\w&js=(\d)\'\) style=\'color:blue\'>(.*?)<br>(.*?)<br><font style=\'color:#336633\'>\[.*?\]<br>\(([0-9]{0,2})-([0-9]{0,2})(.*?)\)<\/font><br>(.*?)<\/A>/';
+    preg_match_all($preg, $content, $matcher);
+    dump($matcher);
 });
 
 Auth::routes();

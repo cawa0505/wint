@@ -21,5 +21,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ListBuilding extends Model
 {
-    //
+
+    /**
+     * @param $building_name string
+     * @param $university_id integer
+     */
+    public static function updateBuilding($building_name, $university_id)
+    {
+        $building=self::firstOrCreate(['name'=>$building_name,'university_id'=>$university_id]);
+        return $building->id;
+    }
 }
