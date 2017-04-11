@@ -21,7 +21,7 @@ class CreateEduCoursesTable extends Migration
             $table->unsignedInteger('university_id')->comment('开课学校');
             $table->unsignedTinyInteger('is_common')->comment('1公共 0专业')->nullable();
             $table->unsignedTinyInteger('is_required')->comment('1必修 0选修')->nullable();
-            $table->foreign('college_id')->references('id')->on('list_colleges');
+            $table->foreign('university_id')->references('id')->on('list_universities');
             $table->timestamps();
         });
     }

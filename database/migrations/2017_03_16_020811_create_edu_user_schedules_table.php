@@ -20,7 +20,7 @@ class CreateEduUserSchedulesTable extends Migration
             $table->unsignedInteger('schedule_id')->comment('课程排表id');
             $table->string('year',4);
             $table->string('term',2);
-            $table->string('remark')->comment('备注');
+            $table->string('remark')->comment('备注')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('schedule_id')->references('id')->on('edu_schedules');
             $table->timestamps();

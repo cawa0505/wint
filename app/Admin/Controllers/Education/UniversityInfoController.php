@@ -75,7 +75,7 @@ class UniversityInfoController extends Controller
         return Admin::grid(EduUniversityInfo::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
-            $grid->university_id()->university->name('学校名称');
+            $grid->university()->name('学校名称');
             $grid->website('学校官网');
             $grid->function_list('功能');
             $grid->new_term('开学日期');

@@ -21,6 +21,8 @@ namespace App\Models;
 class EduTeacher extends BaseModel
 {
 
+    protected $fillable=['id','name','university_id'];
+
     public function university(){
         return $this->belongsTo('App\Models\ListUniversity','university_id');
     }
@@ -31,6 +33,12 @@ class EduTeacher extends BaseModel
      */
     public static function updateTeacher($teacher_name, $university_id)
     {
-
+        $data['name']=$teacher_name;
+        $data['university_id']=$university_id;
+        $result=self::firstOrCreate($data);
+        if($result)
+            return $result->id;
+        else
+            return false;
     }
 }

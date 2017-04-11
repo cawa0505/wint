@@ -27,5 +27,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class EduUserSchedule extends Model
 {
-    //
+    protected $fillable=['user_id','schedule_id','year','term'];
 }

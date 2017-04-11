@@ -104,7 +104,7 @@ class BaseModel extends Model{
      * @param $university_id
      * @return int 课程id
      */
-    public function updateCourse($name,$university_id,$is_common,$is_required,$code){
+    public static function updateCourse($name,$university_id,$is_common,$is_required,$code){
         $data['name']=$name;
         $data['university_id']=$university_id;
         $data['code']=$code;

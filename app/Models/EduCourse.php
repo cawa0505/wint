@@ -29,6 +29,8 @@ use GuzzleHttp\Cookie\CookieJar;
 class EduCourse extends BaseModel
 {
 
+    protected $fillable=['name','university_id','code','is_common','is_required'];
+
     /**
      * @param $uid integer 用户id
      * @param $year string 年份
@@ -75,9 +77,11 @@ class EduCourse extends BaseModel
         $where['term']=$term;
         $schedule_ids=EduUserSchedule::where($where)->pluck('schedule_id');
         $schedules=EduSchedule::whereIn('edu_schedules.id',$schedule_ids)
-            ->leftJoin('edu_courses','edu.schedules.course_id','=','edu_courses.id')
+            ->leftJoin('edu_courses','edu_schedules.course_id','=','edu_courses.id')
             ->leftJoin('edu_teachers','edu_schedules.teacher_id','=','edu_teachers.id')
-            ->select('edu_schedules.*','edu_courses.name','edu_teachers.name as teacher_name')->get();
+            ->leftJoin('list_classrooms','edu_schedules.classroom_id','=','list_classrooms.id')
+            ->leftJoin('list_buildings','edu_schedules.building_id','=','list_buildings.id')
+            ->select('edu_schedules.*','edu_courses.name','edu_teachers.name as teacher_name','list_classrooms.name as classroom_name','list_buildings.name as building_name')->get();
         return $schedules->toArray();
     }
 
@@ -128,7 +132,7 @@ class EduCourse extends BaseModel
     public static function saveData($data,$year,$term)
     {
         for($i=0;$i<sizeof($data);$i++){
-            $schedule['course_id']=self::updateCourse($data[$i]['course_name']?:'',$data[$i]['university_id']?:'',$data[$i]['is_common']?:'',$data[$i]['is_common']?:'',$data[$i]['code']?:'');
+            $schedule['course_id']=self::updateCourse($data[$i]['course_name']?:'',$data[$i]['university_id']?:'',isset($data[$i]['is_common'])?$data[$i]['is_common']:2,isset($data[$i]['is_required'])?$data[$i]['is_required']:2,isset($data[$i]['is_required'])?$data[$i]['is_required']:2);
             $schedule['start_week']=$data[$i]['start_week'];
             $schedule['end_week']=$data[$i]['end_week'];
             if($data[$i]['turning']=='周')
@@ -143,11 +147,11 @@ class EduCourse extends BaseModel
             $schedule['time']=$data[$i]['time'];
             //上多久
             $schedule['duration']=$data[$i]['duration'];
-            $schedule['teacher_id']=$data[$i]['teacher_name']?EduTeacher::updateTeacher($data[$i]['teacher_name'],$data[$i]['university_id']):'';
-            $schedule['classroom_id']=$data[$i]['classroom']?ListClassroom::updateClassroom($data[$i]['classroom'],$data[$i]['university_id']):'';
+            $schedule['teacher_id']=isset($data[$i]['teacher_name'])?EduTeacher::updateTeacher($data[$i]['teacher_name'],$data[$i]['university_id']):'';
+            $schedule['classroom_id']=isset($data[$i]['classroom'])?ListClassroom::updateClassroom($data[$i]['classroom'],$data[$i]['university_id']):'';
             $result=EduSchedule::firstOrCreate($schedule);
             if($result)
-                EduSchedule::firstOrCreate([
+                EduUserSchedule::firstOrCreate([
                     'user_id'=>$data[$i]['uid'],
                     'schedule_id'=>$result->id,
                     'year'=>$year,

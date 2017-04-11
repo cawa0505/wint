@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
 class ListBuilding extends Model
 {
 
+    protected $fillable=['id','university_id','name'];
+
     /**
      * @param $building_name string
      * @param $university_id integer

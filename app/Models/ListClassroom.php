@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
 class ListClassroom extends BaseModel
 {
 
+    protected $fillable=['id','name','building_id'];
+
     public function building()
     {
         return $this->belongsTo('App\Models\ListBuilding', 'building_id');
