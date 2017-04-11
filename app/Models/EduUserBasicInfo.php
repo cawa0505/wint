@@ -90,7 +90,7 @@ class EduUserBasicInfo extends BaseModel
      */
     public function init($uid){
         //获取本次所用的全部cookie
-        $jar=self::login($uid);
+        $jar=$this->login($uid);
         if($jar['status']==1){
             return $jar['msg'];
         }
@@ -98,7 +98,7 @@ class EduUserBasicInfo extends BaseModel
         $year=date('Y',time());
         $term=date('m')>1&&date('m'<7)?'S':'A';
         //获取课表
-        $course=EduCourse::fetchCourse($uid,$year,$term,$jar['cookies']);
+        $course=new EduCourse()->fetch($uid,$year,$term,$jar['cookies'],'course');
     }
 
     /**
