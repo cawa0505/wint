@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register','Api\RegisterController@register');
 Route::group(['middleware' => 'auth:api','namespace'=>'Api'],function(){
     Route::resource('EduUserBasicInfo','EduUserBasicInfoController');
+    Route::get('init','EduUserBasicInfoController@init');
 });
 

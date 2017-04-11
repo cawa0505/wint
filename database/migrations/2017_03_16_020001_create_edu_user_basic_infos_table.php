@@ -24,7 +24,7 @@ class CreateEduUserBasicInfosTable extends Migration
             $table->unsignedInteger('class_id')->comment('班级')->nullable();
             $table->unsignedInteger('year')->comment('入学年份')->nullable();
             $table->string('term',2)->comment('入学学期')->nullable();
-            $table->string('user_auth_info')->comment('用户授权信息，json数组')->nullable();
+            $table->text('user_auth_info')->comment('用户授权信息，json数组，不同网站对应不同信息')->nullable();
             $table->timestamps();
         });
     }

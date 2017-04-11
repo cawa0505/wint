@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin \Eloquent
  */
-class Schedule extends Model
+class EduSchedule extends BaseModel
 {
     //
 }

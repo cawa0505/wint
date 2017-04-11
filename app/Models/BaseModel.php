@@ -21,10 +21,11 @@ class BaseModel extends Model{
     public static function getFuncInfo($university_id,$type){
         $university=EduUniversityInfo::where('university_id','=',$university_id)->first();
         $func=json_decode($university->function_list,true);
-        if(!in_array($type,$func)){
+        if(!array_key_exists($type,$func)){
             return false;
         }
-        return json_decode($university->function_content,true);
+        $result=json_decode($university->function_content,true);
+        return $result[$type];
     }
 
     /**
@@ -32,8 +33,9 @@ class BaseModel extends Model{
      * @return array status=0成功，1失败并返回失败原因，成功返回cookies为jar对象
      */
     public static function login($uid){
-        $edu_user_basic_info=EduUserBasicInfo::where('user_id','=',$uid)->value('university_id');
-        $func=self::getFuncInfo($edu_user_basic_info->id,'login');
+        $edu_user_basic_info=EduUserBasicInfo::where('user_id','=',$uid)->first();
+        $params=json_decode($edu_user_basic_info->user_auth_info);
+        $func=self::getFuncInfo($edu_user_basic_info->classes->profession->college->university_id,'login');
         if($func){
             $client = new Client();
             $jar = new CookieJar;
@@ -45,18 +47,18 @@ class BaseModel extends Model{
                     'Referer'=>$func['referer'],
                 ],
                 'form_params' => [
-                    $func['params']['category']=>$edu_user_basic_info->category,
-                    $func['params']['uid']=>$edu_user_basic_info->uid,
-                    $func['params']['password']=>$edu_user_basic_info->password,
+                    $func['params']['category']=>$params->category,
+                    $func['params']['uid']=>$params->uid,
+                    $func['params']['password']=>$params->password,
                 ],
-                'allow_redirects'=>false,
+                'allow_redirects'=>true,
                 'cookies'=>$jar
             ]);
             if($response->getStatusCode()!='200'){
                 return ['status'=>1,'msg'=>'学校服务器出错~'];
             }
             $content=self::dataHanding($response->getBody());
-            if(preg_match($func['failed'],$content)||!isset($jar)){
+            if(preg_match('/'.$func['failed'].'/',$content)||!isset($jar)){
                 return ['status'=>1,'msg'=>'用户名密码错误~'];
             }else{
                 return ['status'=>0,'cookies'=>$jar];
@@ -67,12 +69,12 @@ class BaseModel extends Model{
         }
     }
 
-    /** 就是转编码，剔除无用字符串，留下个td tr正则用
+    /** 就是转编码，剔除无用字符串
      * @param $content string 待处理数据
      * @return mixed
      */
     public static function dataHanding($content){
-        return strip_tags(str_replace('&nbsp;','',iconv(mb_detect_encoding($content, ['ASCII','GB2312','GBK','UTF-8']), "utf-8",$content)),'<table>,<td>,<tr>');
+        return str_replace('&nbsp;','',iconv(mb_detect_encoding($content, ['ASCII','GB2312','GBK','UTF-8']), "utf-8",$content));
     }
 
     /**
@@ -92,5 +94,26 @@ class BaseModel extends Model{
         else
             $sex=1;
         return ['day'=>$week,'type'=>$sex];
+    }
+
+    /**输入课程基本信息，判断数据库里有没有，firstOrCreate
+     * @param $name
+     * @param $code
+     * @param $is_common
+     * @param $is_required
+     * @param $university_id
+     * @return int 课程id
+     */
+    public function updateCourse($name,$university_id,$is_common,$is_required,$code){
+        $data['name']=$name;
+        $data['university_id']=$university_id;
+        $data['code']=$code;
+        $data['is_common']=$is_common;
+        $data['is_required']=$is_required;
+        $result=EduCourse::firstOrCreate($data);
+        if($result)
+            return $result->id;
+        else
+            return false;
     }
 }
