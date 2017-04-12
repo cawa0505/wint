@@ -2,36 +2,48 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\EduGrade
- *
- * @property int $id
- * @property int $course_id
- * @property int $user_id
- * @property string $year
- * @property string $term
- * @property float $grade
- * @property bool $state 类型,0正常,1补考,2重修,3免修
- * @property int $teacher_id
- * @property int $credit 所占学分
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereCourseId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereCredit($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereGrade($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereState($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereTeacherId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereTerm($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduGrade whereYear($value)
- * @mixin \Eloquent
- */
-class EduGrade extends Model
+class EduGrade extends EduModel
 {
-    //
+    protected $fillable=['course_id','credit','point','user_id','university_id','year','term'];
+
+    //成绩
+
+    /**
+     * @param $uid
+     *
+     * @return array
+     */
+    public function getAllData ($uid) {
+        $where['user_id'] = $uid;
+        $where['year']=$this->year?:'';
+        $where['term']=$this->term?:'';
+        $credits = self::where($where)
+            ->leftJoin('edu_courses', 'edu_courses.id', '=', 'edu_grades.course_id')
+            ->select('edu_grades.*','edu_courses.name as course_name','edu_courses.is_common as course_common','edu_courses.is_required as course_required','edu_courses.code as course_code')
+            ->get();
+
+        return $credits->toArray();
+    }
+
+
+    public function saveData ($data) {
+        for ($i = 0; $i < count($data); $i++) {
+            $grade['course_id']=EduCourse::updateCourse($data[$i]['course_name'],$data[$i]['university_id'],
+                $data[$i]['is_common'],$data[$i]['is_required
+            '],$data[$i]['code']);
+            $grade['credit']=$data[$i]['credit'];  //学分
+            $grade['grade']=$data[$i]['grade'];    //成绩
+            $grade['year']=$data[$i]['year'];
+            $grade['term']=$data[$i]['term'];
+            $grade['teacher_id']=EduTeacher::updateTeacher($data[$i]['teacher_name'],$data[$i]['university_id']);
+            $grade['state']=$data[$i]['state'];
+            $grade['user_id']=$data[$i]['uid'];
+            //$credit['university_id']=$data[$i]['university_id'];
+            $result=self::firstOrCreate($grade);
+            if(!$result)
+                return false;
+        }
+        return true;
+    }
 }

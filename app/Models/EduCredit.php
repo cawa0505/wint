@@ -5,6 +5,9 @@ namespace App\Models;
 
 class EduCredit extends EduModel
 {
+
+    protected $fillable=['course_id','credit','point','user_id','university_id'];
+
     //学分绩点
 
     /**
@@ -30,7 +33,6 @@ class EduCredit extends EduModel
             $credit['credit']=$data[$i]['credit'];
             $credit['grade']=$data[$i]['grade'];
             $credit['user_id']=$data[$i]['uid'];
-            $credit['university_id']=$data[$i]['university_id'];
             $result=self::firstOrCreate($credit);
             if(!$result)
                 return false;
