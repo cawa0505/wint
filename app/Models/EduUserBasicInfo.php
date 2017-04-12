@@ -39,6 +39,8 @@ class EduUserBasicInfo extends EduModel
 {
     protected $fillable = ['name', 'user_id', 'class_id', 'student_id', 'year', 'term', 'user_auth_info', 'cookies','photo_url', 'real_name','sex','type','created_at', 'updated_at'];
 
+    //TODO 获取个人基本信息
+
     public function classes(){
         return $this->belongsTo('App\Models\ListClass','class_id');
     }

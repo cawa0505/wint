@@ -5,7 +5,7 @@ namespace App\Models;
 
 class EduGrade extends EduModel
 {
-    protected $fillable=['course_id','credit','point','user_id','university_id','year','term'];
+    protected $fillable=['course_id','credit','grade','user_id','university_id','year','term'];
 
     //成绩
 

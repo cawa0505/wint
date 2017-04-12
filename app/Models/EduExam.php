@@ -23,5 +23,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class EduExam extends Model
 {
-    //
+    //考试排表
 }
