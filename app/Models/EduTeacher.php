@@ -18,7 +18,7 @@ namespace App\Models;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\EduTeacher whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class EduTeacher extends BaseModel
+class EduTeacher extends EduModel
 {
 
     protected $fillable=['id','name','university_id'];

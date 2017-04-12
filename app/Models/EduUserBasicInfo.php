@@ -35,7 +35,7 @@ namespace App\Models;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\EduUserBasicInfo whereUserId($value)
  * @mixin \Eloquent
  */
-class EduUserBasicInfo extends BaseModel
+class EduUserBasicInfo extends EduModel
 {
     protected $fillable = ['name', 'user_id', 'class_id', 'student_id', 'year', 'term', 'user_auth_info', 'cookies','photo_url', 'real_name','sex','type','created_at', 'updated_at'];
 
@@ -98,7 +98,10 @@ class EduUserBasicInfo extends BaseModel
         $year=date('Y',time());
         $term=date('m')>1&&date('m'<7)?'S':'A';
         //获取课表
-        $course=new EduCourse()->fetch($uid,$year,$term,$jar['cookies'],'course');
+        $Course=new EduCourse();
+        $course=$Course->fetch($uid,$year,$term,$jar['cookies'],'course');
+        $Credit=new EduCredit();
+        $credit=$Credit->fetch($uid,$year,$term,$jar['cookies'],'credit');
     }
 
     /**

@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ListClassroom whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class ListClassroom extends BaseModel
+class ListClassroom extends EduModel
 {
 
     protected $fillable=['id','name','building_id'];

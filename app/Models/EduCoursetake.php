@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin \Eloquent
  */
-class EduCoursetake extends BaseModel
+class EduCoursetake extends EduModel
 {
 
 
@@ -18,7 +18,7 @@ class EduCoursetake extends BaseModel
      * @param $data
      * @return bool true Or false
      */
-    public function saveData($data,$year,$term){
+    public function saveData($data){
 
     }
 }
