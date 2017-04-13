@@ -8,7 +8,8 @@ class EduUserBasicInfo extends EduModel
 
     //TODO 获取个人基本信息
 
-    public function classes () {
+    public function classes()
+    {
         return $this->belongsTo('App\Models\ListClass', 'class_id');
     }
 
@@ -17,15 +18,19 @@ class EduUserBasicInfo extends EduModel
      * @param $uid  integer 用户id
      * @param $info array 该绑定的各种信息
      */
-    public function bind ($uid, $info) {
+    public function bind($uid, $info)
+    {
         $temp['user_id'] = $uid;
-        $data['class_id'] = isset($info['class_id']) ? $info['class_id'] : 0;
-        $data['student_id'] = isset($info['student_id']) ? $info['student_id'] : 0;
-        $data['year'] = isset($info['year']) ? $info['year'] : 0;
-        $data['term'] = isset($info['term']) ? $info['term'] : '';
-        $data['user_auth_info'] = isset($info['user_auth_info']) ? json_encode($info['user_auth_info']) : '';
+        foreach ($info as $k => $v) {
+            if (!$v)
+                unset($info[$k]);
 
-        return self::updateOrCreate($temp, $data);
+        }
+        if (isset($info['user_auth_info'])) {
+            $info['user_auth_info'] = json_encode($info['user_auth_info']);
+        }
+
+        return self::updateOrCreate($temp, $info);
     }
 
     /**
@@ -33,7 +38,8 @@ class EduUserBasicInfo extends EduModel
      *
      * @return int
      */
-    public function unbind ($uid) {
+    public function unbind($uid)
+    {
         $temp = self::where('user_id', '=', $uid)->first();
         if ($temp) {
             return $this->destroy($temp->id);
@@ -48,11 +54,19 @@ class EduUserBasicInfo extends EduModel
      *
      * @return bool
      */
-    public function edit ($id, $info) {
-        if ($info['user_id']) {
+    public function edit($id, $info)
+    {
+        if (isset($info['user_id'])) {
             unset($info['user_id']);
         }
+        foreach ($info as $k => $v) {
+            if (!$v)
+                unset($info[$k]);
 
+        }
+        if (isset($info['user_auth_info'])) {
+            $info['user_auth_info'] = json_encode($info['user_auth_info']);
+        }
         return self::where('id', $id)->update($info);
 
     }
@@ -61,7 +75,8 @@ class EduUserBasicInfo extends EduModel
      * @param $uid integer 用户id
      *             此方法是核心。。获取并初始化用户的所有数据
      */
-    public function init ($uid) {
+    public function init($uid)
+    {
         //获取当前年月及学期
         $this->year = date('Y', time());
         $this->term = date('m') > 1 && date('m' < 8) ? 'S' : 'A';
@@ -90,7 +105,8 @@ class EduUserBasicInfo extends EduModel
     /**
      * @param $uid integer 重新初始化 就是执行init
      */
-    public function reInit ($uid) {
+    public function reInit($uid)
+    {
         return $this->init($uid);
     }
 
@@ -102,7 +118,8 @@ class EduUserBasicInfo extends EduModel
      *
      * @return array 返回解析后的数据，其实还是存不进去的。
      */
-    public function resolve ($data, $uid, $university_id, $func) {
+    public function resolve($data, $uid, $university_id, $func)
+    {
         preg_match('/' . $func['pattern'] . '/', $data, $new);
         $resolved = [];
         foreach ($func['order'] as $k => $v) {
@@ -116,7 +133,8 @@ class EduUserBasicInfo extends EduModel
     }
 
     //保存用户信息
-    public function saveData ($data) {
+    public function saveData($data)
+    {
         $bi['student_id'] = $data['student_id'];
         $bi['real_name'] = $data['real_name'];
         $bi['sex'] = $data['sex'];
