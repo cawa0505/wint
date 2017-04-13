@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken()->nullable();
             $table->string('last_login_time')->nullable();
             $table->string('last_login_ip')->nullable();
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

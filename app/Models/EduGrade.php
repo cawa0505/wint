@@ -33,13 +33,15 @@ class EduGrade extends EduModel
                 $data[$i]['is_common'],$data[$i]['is_required
             '],$data[$i]['code']);
             $grade['credit']=$data[$i]['credit'];  //学分
+            $grade['daily']=$data[$i]['daily'];    //平时
+            $grade['end_term']=$data[$i]['end_term'];    //期末
             $grade['grade']=$data[$i]['grade'];    //成绩
+            $grade['daily_proportion']=$data[$i]['daily_proportion'];    //平时占比
             $grade['year']=$data[$i]['year'];
             $grade['term']=$data[$i]['term'];
             $grade['teacher_id']=EduTeacher::updateTeacher($data[$i]['teacher_name'],$data[$i]['university_id']);
             $grade['state']=$data[$i]['state'];
             $grade['user_id']=$data[$i]['uid'];
-            //$credit['university_id']=$data[$i]['university_id'];
             $result=self::firstOrCreate($grade);
             if(!$result)
                 return false;

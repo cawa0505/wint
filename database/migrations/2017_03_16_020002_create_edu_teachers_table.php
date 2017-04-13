@@ -18,8 +18,8 @@ class CreateEduTeachersTable extends Migration
             $table->string('name');
             $table->unsignedInteger('college_id')->comment('所属学院')->nullable();
             $table->unsignedInteger('university_id')->comment('所属学校');
-            $table->foreign('college_id')->references('list_colleges')->on('id');
-            $table->foreign('university_id')->references('list_universities')->on('id');
+            $table->foreign('college_id')->references('id')->on('list_colleges');
+            $table->foreign('university_id')->references('id')->on('list_universities');
             $table->timestamps();
         });
     }

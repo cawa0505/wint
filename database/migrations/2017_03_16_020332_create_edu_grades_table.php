@@ -20,7 +20,10 @@ class CreateEduGradesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('year',4);
             $table->string('term');
-            $table->float('grade');
+            $table->float('daily');
+            $table->float('end_term');
+            $table->string('grade')->comment('考虑还有“通过"这一成绩');
+            $table->integer('daily_proportion')->comment('平时分占比');
             $table->unsignedTinyInteger('state')->default(0)->comment('类型,0正常,1补考,2重修,3免修');
             $table->unsignedInteger('teacher_id');
             $table->float('credit')->comment('所占学分');

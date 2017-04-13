@@ -20,7 +20,6 @@ class CreateEduUserBasicInfosTable extends Migration
             $table->string('real_name')->comment('真实姓名')->nullable();
             $table->tinyInteger('sex')->comment('性别，0男1女')->nullable();
             $table->string('photo_url')->comment('皂片')->nullable();
-            $table->unsignedInteger('type')->comment('0学生，1老师，还没确定要有啥区别为好')->default(0);
             $table->unsignedInteger('class_id')->comment('班级')->nullable();
             $table->unsignedInteger('year')->comment('入学年份')->nullable();
             $table->string('term',2)->comment('入学学期')->nullable();
