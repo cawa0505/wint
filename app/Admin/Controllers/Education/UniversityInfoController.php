@@ -96,8 +96,8 @@ class UniversityInfoController extends Controller
             $form->display('id', 'ID');
             $form->select('university_id','学校')->options(ListUniversity::pluck('name','id'));
             $form->url('website','官方网址');
-            $form->editor('function_list','功能');
-            $form->editor('function_content','功能详情');
+            $form->textarea('function_list','功能');
+            $form->textarea('function_content','功能详情');
             $form->date('new_term','开学日期');
             $form->display('created_at', '创建时间');
             $form->display('updated_at', '更新时间');

@@ -26,7 +26,6 @@ class EduUserBasicInfoController extends ApiController
         $result=$this->model->where('user_id',$request->user()->id)->first();
         if(!$result)
             return $this->error(['msg'=>'没有数据，请绑定']);
-        $result->classes->profession->college->university;
         return $this->success($result->toArray());
     }
 
@@ -65,9 +64,9 @@ class EduUserBasicInfoController extends ApiController
      */
     public function init(Request $request){
         $result=$this->model->init($request->user()->id);
-        if($result)
+        if($result['status']==0)
             $this->success(['msg'=>'初始化成功']);
         else
-            $this->error();
+            $this->error($result['msg']);
     }
 }

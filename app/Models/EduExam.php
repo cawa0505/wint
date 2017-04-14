@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class EduExam extends EduModel
 {
+    protected $fillable=['course_id','classroom_id','date','start_time','end_time'];
+
     //考试排表
 
     /**直接从数据库获取信息，获取所有课表，无论以什么方式，最后获取信息一定是通过fetch，其他接口均为返回数据用的，此处应用联合查询
@@ -35,8 +37,8 @@ class EduExam extends EduModel
      */
     public function getAllData ($uid) {
         $where['user_id'] = $uid;
-        $where['year'] = $this->year;
-        $where['term'] = $this->term;
+        $where['year'] = $this->_year;
+        $where['term'] = $this->_term;
         $exam_ids = EduUserExam::where($where)->pluck('exam_id');
         $exams = EduExam::whereIn('edu_exams.id', $exam_ids)
             ->leftJoin('edu_courses', 'edu_exams.course_id', '=', 'edu_courses.id')
@@ -68,8 +70,8 @@ class EduExam extends EduModel
                 EduUserExam::firstOrCreate([
                     'user_id' => $data[$i]['uid'],
                     'exam_id' => $result->id,
-                    'year'    => $this->year,
-                    'term'    => $this->term,
+                    'year'    => $this->_year,
+                    'term'    => $this->_term,
                     'remark'  => $this->remark ?: '',
                 ]);
             }

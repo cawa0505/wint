@@ -37,7 +37,7 @@ class EduCourse extends EduModel
             $result = self::updateOrCreate($data, $data1);
         }
         else {
-            $result = self::create($data);
+            $result = self::firstOrCreate($data);
         }
         if ($result) {
             return $result->id;

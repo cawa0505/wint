@@ -4,7 +4,7 @@ namespace App\Models;
 
 class EduUserBasicInfo extends EduModel
 {
-    protected $fillable = ['name', 'user_id', 'class_id', 'student_id', 'year', 'term', 'user_auth_info', 'cookies', 'photo_url', 'real_name', 'sex', 'type', 'created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'class_id', 'student_id', 'year', 'term', 'user_auth_info', 'cookies', 'photo_url', 'real_name', 'sex', 'type', 'university_id', 'created_at', 'updated_at'];
 
     //TODO 获取个人基本信息
 
@@ -78,28 +78,30 @@ class EduUserBasicInfo extends EduModel
     public function init($uid)
     {
         //获取当前年月及学期
-        $this->year = date('Y', time());
-        $this->term = date('m') > 1 && date('m' < 8) ? 'S' : 'A';
-        //获取本次所用的全部cookie
+        $this->_year = date('Y', time());
+        $this->_term = date('m') > 1 && date('m' < 8) ? 'S' : 'A';
+        //获取本次所用的全部cookies
         $jar = $this->login($uid);
         if ($jar['status'] == 1) {
-            return $jar['msg'];
+            return $jar;
         }
+        $this->_jar=$jar;
         //首先拿到用户基本信息吧
-        $user_basic_info = $this->fetch($uid, 'basic_info', $this->year, $this->term, $jar['cookies']);
+        $user_basic_info = $this->fetch($uid, 'basic_info', true, $this->_year, $this->_term);
         //最先获取绩点，因为绩点里的信息最全
         $Credit = new EduCredit();
-        $credit = $Credit->fetch($uid, 'credit', $this->year, $this->term, $jar['cookies']);
+        $credit = $Credit->fetch($uid, 'credit', true, $this->_year, $this->_term);
+        var_dump($user_basic_info);
         //获取课表
-        $Schedule = new EduSchedule();
-        $schedule = $Schedule->fetch($uid, 'course', $this->year, $this->term, $jar['cookies']);
+        //$Schedule = new EduSchedule();
+        //$schedule = $Schedule->fetch($uid, 'schedule', true, $this->_year, $this->_term);
         //获取成绩
-        $Grade = new EduGrade();
-        $grade = $Grade->fetch($uid, 'grade', $this->year, $this->term, $jar['cookies']);
-        $Coursetake = new EduCoursetake();
-        $coursetake = $Coursetake->fetch($uid, 'coursetake', $this->year, $this->term, $jar['cookies']);
-        $Exam = new EduExam();
-        $exam = $Exam->fetch($uid, 'exam', $this->year, $this->term, $jar['cookies']);
+        //$Grade = new EduGrade();
+        //$grade = $Grade->fetch($uid, 'grade', true, $this->_year, $this->_term);
+        //$Coursetake = new EduCoursetake();
+        //$coursetake = $Coursetake->fetch($uid, 'coursetake', true, $this->_year, $this->_term);
+        //$Exam = new EduExam();
+        //$exam = $Exam->fetch($uid, 'exam', true, $this->_year, $this->_term);
     }
 
     /**
@@ -120,14 +122,14 @@ class EduUserBasicInfo extends EduModel
      */
     public function resolve($data, $uid, $university_id, $func)
     {
-        preg_match('/' . $func['pattern'] . '/', $data, $new);
+        preg_match_all('/' . $func['pattern'] . '/', $data, $new);
         $resolved = [];
         foreach ($func['order'] as $k => $v) {
-            $resolved[$k] = $new[$v];
+            $resolved[$k] = $new[1][$v];
         }
         $resolved['user_id'] = $uid;
         $resolved['university_id'] = $university_id;
-        $resolved['photo_url'] = $func['photo_url'];
+        //$resolved['photo_url'] = $func['photo_url'];
 
         return $resolved;
     }
@@ -135,13 +137,21 @@ class EduUserBasicInfo extends EduModel
     //保存用户信息
     public function saveData($data)
     {
+        $uid=$data['user_id'];
+        unset($data['user_id']);
         $bi['student_id'] = $data['student_id'];
         $bi['real_name'] = $data['real_name'];
-        $bi['sex'] = $data['sex'];
+        $bi['sex'] = $data['sex']=='男'?'1':'2';
         $bi['year'] = $data['year'];
         $bi['term'] = $data['term'] == '春' ? 'S' : 'A';
-        $bi['photo_url'] = $this->uploadFile($data['photo_url'] . $data['student_id']);
+        //$bi['photo_url'] = $this->uploadFile($data['photo_url'] . $data['student_id']);
         $bi['class_id'] = ListClass::updateClass($data['class_name'], $data['profession'], $data['university_id']);
+        return self::where('user_id','=',$uid)->update($bi);
+    }
+
+    public function getAllData($uid)
+    {
+        return self::where('user_id','=',$uid)->first()->toArray();
     }
 
 

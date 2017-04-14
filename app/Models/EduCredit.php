@@ -6,7 +6,7 @@ namespace App\Models;
 class EduCredit extends EduModel
 {
 
-    protected $fillable = ['course_id', 'credit', 'point', 'user_id', 'university_id'];
+    protected $fillable = ['course_id', 'credit', 'point', 'user_id', 'university_id' ,'remark'];
 
     //学分绩点
 
@@ -28,11 +28,12 @@ class EduCredit extends EduModel
     public function saveData ($data) {
         for ($i = 0; $i < count($data); $i++) {
             $credit['course_id'] = EduCourse::updateCourse($data[$i]['course_name'], $data[$i]['university_id'],
-                $data[$i]['is_common'], $data[$i]['is_required
-            '], $data[$i]['code']);
+                $data[$i]['is_common']=='公共'?1:2, $data[$i]['is_required
+            ']=='必修'?1:2, $data[$i]['code']);
             $credit['credit'] = $data[$i]['credit'];
             $credit['grade'] = $data[$i]['grade'];
             $credit['user_id'] = $data[$i]['uid'];
+            $credit['remark'] = $data[$i]['remark'];
             $result = self::firstOrCreate($credit);
             if (!$result) {
                 return false;
