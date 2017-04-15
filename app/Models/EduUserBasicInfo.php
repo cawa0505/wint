@@ -6,7 +6,6 @@ class EduUserBasicInfo extends EduModel
 {
     protected $fillable = ['user_id', 'class_id', 'student_id', 'year', 'term', 'user_auth_info', 'cookies', 'photo_url', 'real_name', 'sex', 'type', 'university_id', 'created_at', 'updated_at'];
 
-    //TODO 获取个人基本信息
 
     public function classes()
     {
@@ -91,15 +90,14 @@ class EduUserBasicInfo extends EduModel
         //最先获取绩点，因为绩点里的信息最全
         $Credit = new EduCredit();
         $credit = $Credit->fetch($uid, 'credit', true, $this->_year, $this->_term);
-        var_dump($user_basic_info);
         //获取课表
-        //$Schedule = new EduSchedule();
-        //$schedule = $Schedule->fetch($uid, 'schedule', true, $this->_year, $this->_term);
+        $Schedule = new EduSchedule();
+        $schedule = $Schedule->fetch($uid, 'schedule', true, $this->_year, $this->_term);
         //获取成绩
-        //$Grade = new EduGrade();
-        //$grade = $Grade->fetch($uid, 'grade', true, $this->_year, $this->_term);
-        //$Coursetake = new EduCoursetake();
-        //$coursetake = $Coursetake->fetch($uid, 'coursetake', true, $this->_year, $this->_term);
+        $Grade = new EduGrade();
+        $grade = $Grade->fetch($uid, 'grade', true, $this->_year, $this->_term);
+        $Coursetake = new EduCoursetake();
+        $coursetake = $Coursetake->fetch($uid, 'coursetake', true, $this->_year, $this->_term);
         //$Exam = new EduExam();
         //$exam = $Exam->fetch($uid, 'exam', true, $this->_year, $this->_term);
     }
@@ -144,7 +142,7 @@ class EduUserBasicInfo extends EduModel
         $bi['sex'] = $data['sex']=='男'?'1':'2';
         $bi['year'] = $data['year'];
         $bi['term'] = $data['term'] == '春' ? 'S' : 'A';
-        //$bi['photo_url'] = $this->uploadFile($data['photo_url'] . $data['student_id']);
+        $bi['photo_url'] = $this->uploadFile($data['photo_url'] . $data['student_id']);
         $bi['class_id'] = ListClass::updateClass($data['class_name'], $data['profession'], $data['university_id']);
         return self::where('user_id','=',$uid)->update($bi);
     }

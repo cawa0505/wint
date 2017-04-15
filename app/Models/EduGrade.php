@@ -5,7 +5,7 @@ namespace App\Models;
 
 class EduGrade extends EduModel
 {
-    protected $fillable=['course_id','credit','grade','user_id','university_id','year','term'];
+    protected $fillable=['course_id','daily','end_term','daily_proportion','state','teacher_id','credit','grade','user_id','university_id','year','term'];
 
     //成绩
 
@@ -29,20 +29,26 @@ class EduGrade extends EduModel
 
     public function saveData ($data) {
         for ($i = 0; $i < count($data); $i++) {
-            $grade['course_id']=EduCourse::updateCourse($data[$i]['course_name'],$data[$i]['university_id'],
-                $data[$i]['is_common'],$data[$i]['is_required
-            '],$data[$i]['code']);
+            $grade['course_id']=EduCourse::updateCourse($data[$i]['course_name'], $data[$i]['university_id'],
+                null,null,$data[$i]['code']);
             $grade['credit']=$data[$i]['credit'];  //学分
-            $grade['daily']=$data[$i]['daily'];    //平时
-            $grade['end_term']=$data[$i]['end_term'];    //期末
-            $grade['grade']=$data[$i]['grade'];    //成绩
-            $grade['daily_proportion']=$data[$i]['daily_proportion'];    //平时占比
+            $grade1['daily']=$data[$i]['daily'];    //平时
+            $grade1['end_term']=$data[$i]['end_term'];    //期末
+            $grade1['grade']=is_numeric($data[$i]['grade'])?$data[$i]['grade']:strip_tags($data[$i]['grade']);    //成绩
+            $grade1['daily_proportion']=$data[$i]['daily_proportion'];    //平时占比
             $grade['year']=$data[$i]['year'];
-            $grade['term']=$data[$i]['term'];
-            $grade['teacher_id']=EduTeacher::updateTeacher($data[$i]['teacher_name'],$data[$i]['university_id']);
-            $grade['state']=$data[$i]['state'];
+            $grade['term']=$data[$i]['term']=='春'?'S':'A';
+            $grade1['teacher_id']=EduTeacher::updateTeacher($data[$i]['teacher_name'],$data[$i]['university_id']);
+            switch ($data[$i]['state']){
+                case '':$grade['state']=0;break;
+                case '补考':$grade['state']=1;break;
+                case '重修':$grade['state']=2;break;
+                case '免修':$grade['state']=3;break;
+                case '缓考':$grade['state']=4;break;
+                default:$grade['state']=0;
+            }
             $grade['user_id']=$data[$i]['uid'];
-            $result=self::firstOrCreate($grade);
+            $result=self::updateOrCreate($grade,$grade1);
             if(!$result)
                 return false;
         }

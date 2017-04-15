@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'cloud' => 's3',
+    'cloud' => 'qiniu',
 
     /*
     |--------------------------------------------------------------------------
@@ -61,6 +61,13 @@ return [
             'secret' => env('AWS_SECRET'),
             'region' => env('AWS_REGION'),
             'bucket' => env('AWS_BUCKET'),
+        ],
+        'qiniu' => [
+            'driver'  => 'qiniu',
+            'domain' => env('QINIU_DOMAIN','http://cdn.mtlife.cn'),
+            'access_key'=> env('QINIU_ACCESS_KEY','6ujpZXGNoDrvwqKj0kWZ5Yb_b4gDkb0UnbMFmxgT'),  //AccessKey
+            'secret_key'=> env('QINIU_SECRET_KEY','6pKh4IPwOOib0-Qfai59FdN6oqkxFaOyCLFZdtiF'),  //SecretKey
+            'bucket'    => env('QINIU_BUCKET','wint'),  //Bucket名字
         ],
 
     ],

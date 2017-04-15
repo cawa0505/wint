@@ -6,7 +6,7 @@ class EduCoursetake extends EduModel
 {
 
 
-    protected $fillable = ['course_id', 'user_id', 'state', 'year', 'term', 'remark', 'university_id'];
+    protected $fillable = ['course_id', 'user_id', 'state', 'year', 'term', 'credit', 'remark', 'university_id', 'start_week', 'end_week'];
 
     //学分绩点
 
@@ -15,7 +15,8 @@ class EduCoursetake extends EduModel
      *
      * @return array
      */
-    public function getAllData ($uid) {
+    public function getAllData($uid)
+    {
         $where['user_id'] = $uid;
         $where['year'] = $this->_year ?: '';
         $where['term'] = $this->_term ?: '';
@@ -28,40 +29,21 @@ class EduCoursetake extends EduModel
         return $credits->toArray();
     }
 
-    /**在这里解析 curlData返回回来的数据，处理为标准数组形式，可供直接处理后（补充课程数据等）写入数据库的
-     *
-     * @param $data string 未经任何具体处理的数据
-     * @param $university_id
-     * @param $func
-     *
-     * @return array 返回解析后的数据，其实还是存不进去的。
-     */
-    public function resolve ($data, $uid, $university_id, $func) {
-        preg_match_all('/' . $func['pattern'] . '/', $data, $new);
-        $resolved = [];
-        for ($j = 0; $j < sizeof($new[0]); $j++) {
-            foreach ($func['order'] as $k => $v)
-                $resolved[$j][$k] = $new[$v][$j];
-            $resolved[$j]['uid'] = $uid;
-            $resolved[$j]['university_id'] = $university_id;
-            $resolved[$j]['year'] = $this->_year;
-            $resolved[$j]['term'] = $this->_term;
-        }
 
-        return $resolved;
-    }
-
-    public function saveData ($data) {
+    public function saveData($data)
+    {
         for ($i = 0; $i < count($data); $i++) {
             $coursetake['course_id'] = EduCourse::updateCourse($data[$i]['course_name'], $data[$i]['university_id'],
-                $data[$i]['is_common'], $data[$i]['is_required
-            '], $data[$i]['code']);
-            $coursetake['remark'] = $data[$i]['remark'];
-            $coursetake['state'] = $data[$i]['state'];
+                $data[$i]['is_common']=='公共'?1:2, $data[$i]['is_required']=='必修'?1:2, $data[$i]['code']);
+            $coursetake1['state'] = $data[$i]['state']=='中签'?1:2;
             $coursetake['user_id'] = $data[$i]['uid'];
-            $coursetake['year'] = $data[$i]['year'];
-            $coursetake['term'] = $data[$i]['term'];
-            $result = self::firstOrCreate($coursetake);
+            $coursetake['year'] = isset($data[$i]['year'])?$data[$i]['year']:$this->_year;
+            $coursetake['term'] = isset($data[$i]['term'])?$data[$i]['term']:$this->_term;
+            $coursetake1['start_week'] = $data[$i]['start_week'];
+            $coursetake1['end_week'] = $data[$i]['end_week'];
+            $coursetake1['credit'] = $data[$i]['credit'];
+
+            $result = self::updateOrCreate($coursetake,$coursetake1);
             if (!$result) {
                 return false;
             }

@@ -24,13 +24,13 @@ class EduCourse extends EduModel
         $data1['code'] = $code ?: '';
         $data1['is_common'] = $is_common ?: '';
         $data1['is_required'] = $is_required ?: '';
-        if (!$data1['code']) {
+        if (empty($data1['code'])) {
             unset($data1['code']);
         }
-        if (!$data1['is_common']) {
+        if (empty($data1['is_common'])) {
             unset($data1['is_common']);
         }
-        if (!$data1['is_required']) {
+        if (empty($data1['is_required'])) {
             unset($data1['is_required']);
         }
         if ($data1) {

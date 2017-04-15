@@ -4,6 +4,7 @@ namespace App\Models;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
+use Illuminate\Support\Facades\Storage;
 
 class EduModel extends BaseModel
 {
@@ -24,10 +25,9 @@ class EduModel extends BaseModel
         $university = EduUniversityInfo::where('university_id', '=', $university_id)->first();
         $func = json_decode($university->function_list, true);
         if (!array_key_exists($type, $func)) {
-            return false;
+            return '当前学校不支持该功能~';
         }
         $result = json_decode($university->function_content, true);
-
         return $result[$type];
     }
 
@@ -74,12 +74,7 @@ class EduModel extends BaseModel
         }
     }
 
-    /**
-     * @param                $uid  integer 用户id
-     * @param null|CookieJar $jar 默认为null，若传过来了jar对象，则从教学系统获取并存入 嗯
-     *
-     * @return boolean|array 有数据就成功，false就失败了
-     */
+
     public function fetch($uid, $funcType, $needCurl=false, $year = null, $term = null)
     {
         //如果是需要但jar不为有效值，则需要去login
@@ -90,18 +85,10 @@ class EduModel extends BaseModel
         if ($needCurl) {
             //有cookieJar则从教务系统拿数据
             $university_id = EduUserBasicInfo::where('user_id','=',$uid)->first()->university_id;
-            $universityInfo = EduUniversityInfo::where('university_id', '=', $university_id)->first();
-            $functions = isset($universityInfo->function_content) ? $universityInfo->function_content : NULL;
-            if (!$functions) {
-                return false;
+            $func=$this->getFuncInfo($funcType,$university_id);
+            if (!is_array($func)) {
+                return $func;
             }
-            $func = json_decode($functions, true);
-            if (!isset($func)) {
-                return false;
-            }
-            if(!isset($func[$funcType]))
-                return false;
-            $func = $func[$funcType];
             $data = $this->curl($func['curl']);
             if ($data) {
                 //获取到数据解析
@@ -127,11 +114,11 @@ class EduModel extends BaseModel
         $client = new Client();
         $params = [];
 
-        if (isset($func['year'])) {
-            $params[$func['year']] = $this->_year;
+        if (isset($func['params']['year'])) {
+            $params[$func['params']['year']] = $this->_year;
         }
-        if (isset($func['term'])) {
-            $params[$func['term']] = $this->_term;
+        if (isset($func['params']['term'])) {
+            $params[$func['params']['term']] = $this->_term;
         }
 
         $response = $client->request($func['method'], $func['url'], [
@@ -141,6 +128,7 @@ class EduModel extends BaseModel
         if ($response->getStatusCode() == 200) {
             return $this->handing($response->getBody());
         }
+        return false;
     }
 
     /**在这里解析 curlData返回回来的数据，处理为标准数组形式，可供直接处理后（补充课程数据等）写入数据库的
@@ -153,7 +141,7 @@ class EduModel extends BaseModel
      */
     public function resolve($data, $uid, $university_id, $func)
     {
-        preg_match_all('/' . $func['pattern'] . '/', $data, $new);
+        preg_match_all('/' . $func['pattern'] . '/u', $data, $new);
         $resolved = [];
         for ($j = 0; $j < sizeof($new[0]); $j++) {
             foreach ($func['order'] as $k => $v)
@@ -215,8 +203,8 @@ class EduModel extends BaseModel
 
     }
 
-    protected function uploadFile($url)
-    {
+    protected function uploadFile($url){
+        $file=file_get_contents("");
     }
 
 }
