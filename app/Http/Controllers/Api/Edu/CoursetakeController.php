@@ -30,27 +30,6 @@ class CoursetakeController extends ApiController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\EduCoursetake  $eduCoursetake
@@ -65,37 +44,5 @@ class CoursetakeController extends ApiController
         $this->error();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\EduCoursetake  $eduCoursetake
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(EduCoursetake $eduCoursetake)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\EduCoursetake  $eduCoursetake
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, EduCoursetake $eduCoursetake)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\EduCoursetake  $eduCoursetake
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(EduCoursetake $eduCoursetake)
-    {
-        return $this->success(EduCoursetake::destroy($eduCoursetake->id));
-    }
 }

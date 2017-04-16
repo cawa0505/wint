@@ -191,8 +191,7 @@ class EduModel extends BaseModel
      *
      * @return array 第一个值是第几周 第二个值 1单2双
      */
-    public
-    function whichWeek($university_id)
+    public function whichWeek($university_id)
     {
         $new_term = EduUniversityInfo::where('university_id', '=', $university_id)->value('new_term');
         $today = time();

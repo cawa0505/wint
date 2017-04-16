@@ -6,6 +6,29 @@ class EduSchedule extends EduModel
 {
     protected $fillable = ['id', 'course_id', 'year', 'term', 'start_week', 'end_week', 'turning', 'day', 'time', 'duration', 'teacher_id', 'classroom_id'];
 
+    public function getByWeek($uid,$week=null){
+        $where['user_id'] = $uid;
+        if($this->_year)
+            $where['year']=$this->_year;
+        if($this->_term)
+            $where['term']=$this->_term;
+        if(!$week)
+            $week=$this->whichWeek(EduUserBasicInfo::where('user_id','=',$uid)->value('university_id'));
+        $schedule_ids = EduUserSchedule::where($where)->pluck('schedule_id');
+        $schedules = self::whereIn('edu_schedules.id', $schedule_ids)
+            ->whereDate('start_week','<=',$week['day'])
+            ->whereDate('end_week','>=',$week['day'])
+            ->where('turning','=',$week['turning'])
+            ->leftJoin('edu_courses', 'edu_schedules.course_id', '=', 'edu_courses.id')
+            ->leftJoin('edu_teachers', 'edu_schedules.teacher_id', '=', 'edu_teachers.id')
+            ->leftJoin('list_classrooms', 'edu_schedules.classroom_id', '=', 'list_classrooms.id')
+            ->leftJoin('list_buildings', 'list_classrooms.building_id', '=', 'list_buildings.id')
+            ->select('edu_schedules.*', 'edu_courses.name', 'edu_teachers.name as teacher_name', 'list_classrooms.name as classroom_name', 'list_buildings.name as building_name')
+            ->get();
+
+        return $schedules->toArray();
+    }
+
     /**直接从数据库获取信息，获取所有课表，无论以什么方式，最后获取信息一定是通过fetchCourse，其他接口均为返回数据用的，此处应用联合查询
      *
      * @param $uid  integer
@@ -31,7 +54,6 @@ class EduSchedule extends EduModel
 
         return $schedules->toArray();
     }
-
 
     /**上面整合完，在这里批量写入数据库及对应关系以及校验数据准确性
      * Override
@@ -81,10 +103,5 @@ class EduSchedule extends EduModel
         return true;
     }
 
-    //获取单个课程的详情
-    public function getDetail($id)
-    {
-        return self::find($id)->toArray();
-    }
 
 }
