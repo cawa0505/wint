@@ -46,4 +46,9 @@ class EduCourse extends EduModel
             return false;
         }
     }
+
+    public function getDetail($id)
+    {
+        //获取课程详情
+    }
 }

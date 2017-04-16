@@ -86,18 +86,14 @@ class EduUserBasicInfo extends EduModel
         }
         $this->_jar=$jar;
         //首先拿到用户基本信息吧
-        $user_basic_info = $this->fetch($uid, 'basic_info', true, $this->_year, $this->_term);
+        $user_basic_info = $this->initData($uid, 'basic_info', $this->_year, $this->_term);
         //最先获取绩点，因为绩点里的信息最全
-        $Credit = new EduCredit();
-        $credit = $Credit->fetch($uid, 'credit', true, $this->_year, $this->_term);
+        $credit = $this->initData($uid, 'credit',  $this->_year, $this->_term);
         //获取课表
-        $Schedule = new EduSchedule();
-        $schedule = $Schedule->fetch($uid, 'schedule', true, $this->_year, $this->_term);
+        $schedule = $this->initData($uid, 'schedule',  $this->_year, $this->_term);
         //获取成绩
-        $Grade = new EduGrade();
-        $grade = $Grade->fetch($uid, 'grade', true, $this->_year, $this->_term);
-        $Coursetake = new EduCoursetake();
-        $coursetake = $Coursetake->fetch($uid, 'coursetake', true, $this->_year, $this->_term);
+        $grade = $this->initData($uid, 'grade', $this->_year, $this->_term);
+        $coursetake = $this->initData($uid, 'coursetake',  $this->_year, $this->_term);
         //$Exam = new EduExam();
         //$exam = $Exam->fetch($uid, 'exam', true, $this->_year, $this->_term);
     }

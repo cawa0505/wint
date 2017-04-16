@@ -39,15 +39,15 @@ class EduModel extends BaseModel
     public function login($uid)
     {
         $edu_user_basic_info = EduUserBasicInfo::where('user_id', '=', $uid)->first();
-        $params = json_decode($edu_user_basic_info->user_auth_info,true);
+        $params = json_decode($edu_user_basic_info->user_auth_info, true);
         $university_id = isset($this->_university_id) ?: $edu_user_basic_info->university_id;
         $func = $this->getFuncInfo('login', $university_id);
         if ($func) {
             $client = new Client();
             $jar = new CookieJar;
-            $param=[];
-            foreach ($func['params'] as $k=>$v){
-                $param[$v]=$params[$k];
+            $param = [];
+            foreach ($func['params'] as $k => $v) {
+                $param[$v] = $params[$k];
             }
             $response = $client->request('POST', $func['url'], [
                 'headers' => [
@@ -75,41 +75,48 @@ class EduModel extends BaseModel
     }
 
 
-    public function fetch($uid, $funcType, $needCurl=false, $year = null, $term = null)
+    public function fetch($uid, $funcType, $year = null, $term = null, $needCurl = false)
     {
-        //如果是需要但jar不为有效值，则需要去login
-        if($needCurl&&!$this->_jar)
-            $this->_jar=$this->login($uid);
-        $this->_year = $year ?: date('Y');
-        $this->_term = $term ?: date('m') > 1 && date('m' < 8) ? 'S' : 'A';
-        if ($needCurl) {
-            //有cookieJar则从教务系统拿数据
-            $university_id = EduUserBasicInfo::where('user_id','=',$uid)->first()->university_id;
-            $func=$this->getFuncInfo($funcType,$university_id);
-            if (!is_array($func)) {
-                return $func;
-            }
-            $data = $this->curl($func['curl']);
-            if ($data) {
-                //获取到数据解析
-                $resolvedData = $this->resolve($data, $uid, $university_id, $func['regex']);
-                if ($resolvedData) {
-                    $result = $this->saveData($resolvedData);
-                    if (!$result) {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
+        if ($needCurl)
+            $this->initData($uid, $funcType, $year, $term);
 
         return $this->getAllData($uid);
     }
 
-    public function curl($func)
+    public function initData($uid, $funcType, $year = null, $term = null)
+    {
+        //默认获取本学期的
+        $this->_year = $year ?: '';
+        $this->_term = $term ?: '';
+        //如果是需要但jar不为有效值，则需要去login
+        if (!$this->_jar)
+            $this->_jar = $this->login($uid);
+        //有cookieJar则从教务系统拿数据
+        $university_id = EduUserBasicInfo::where('user_id', '=', $uid)->first()->university_id;
+        $func = $this->getFuncInfo($funcType, $university_id);
+        if (!is_array($func)) {
+            return $func;
+        }
+        $data = $this->curl($func['curl']);
+        if ($data) {
+            //获取到数据解析
+            $resolvedData = $this->resolve($data, $uid, $university_id, $func['regex']);
+            if ($resolvedData) {
+                $result = $this->saveData($resolvedData);
+                if (!$result) {
+                    return '保存数据时出错';
+                }
+            } else {
+                return '解析数据时出错或没有数据';
+            }
+        } else {
+            return '获取数据时出错';
+        }
+        return true;
+    }
+
+    public
+    function curl($func)
     {
         $client = new Client();
         $params = [];
@@ -139,7 +146,8 @@ class EduModel extends BaseModel
      *
      * @return array 返回解析后的数据，其实还是存不进去的。
      */
-    public function resolve($data, $uid, $university_id, $func)
+    public
+    function resolve($data, $uid, $university_id, $func)
     {
         preg_match_all('/' . $func['pattern'] . '/u', $data, $new);
         $resolved = [];
@@ -159,19 +167,22 @@ class EduModel extends BaseModel
      *
      * @return mixed
      */
-    public function handing($content)
+    public
+    function handing($content)
     {
         return str_replace('&nbsp;', '', iconv(mb_detect_encoding($content, ['ASCII', 'GB2312', 'GBK', 'UTF-8']), "utf-8", $content));
     }
 
-    //必须重写
-    public function getAllData($uid)
+//必须重写
+    public
+    function getAllData($uid)
     {
 
     }
 
-    //必须重写
-    public function saveData($data)
+//必须重写
+    public
+    function saveData($data)
     {
     }
 
@@ -180,7 +191,8 @@ class EduModel extends BaseModel
      *
      * @return array 第一个值是第几周 第二个值 1单2双
      */
-    public function whichWeek($university_id)
+    public
+    function whichWeek($university_id)
     {
         $new_term = EduUniversityInfo::where('university_id', '=', $university_id)->value('new_term');
         $today = time();
@@ -198,13 +210,16 @@ class EduModel extends BaseModel
         return ['day' => $week, 'type' => $sex];
     }
 
-    protected function getUniversity($uid)
+    protected
+    function getUniversity($uid)
     {
 
     }
 
-    protected function uploadFile($url){
-        $file=file_get_contents("");
+    protected
+    function uploadFile($url)
+    {
+        $file = file_get_contents("http://jxxx.ncut.edu.cn/show_img.asp?xh=" . $url);
     }
 
 }

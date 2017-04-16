@@ -51,4 +51,11 @@ class EduCoursetake extends EduModel
 
         return true;
     }
+
+
+    //获取单个课程的详情
+    public function getDetail($id)
+    {
+        return self::find($id)->toArray();
+    }
 }

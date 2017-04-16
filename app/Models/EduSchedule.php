@@ -16,8 +16,10 @@ class EduSchedule extends EduModel
      */
     public function getAllData ($uid) {
         $where['user_id'] = $uid;
-        $where['year']=$this->_year?:'';
-        $where['term']=$this->_term?:'';
+        if($this->_year)
+            $where['year']=$this->_year;
+        if($this->_term)
+            $where['term']=$this->_term;
         $schedule_ids = EduUserSchedule::where($where)->pluck('schedule_id');
         $schedules = self::whereIn('edu_schedules.id', $schedule_ids)
             ->leftJoin('edu_courses', 'edu_schedules.course_id', '=', 'edu_courses.id')
@@ -77,6 +79,12 @@ class EduSchedule extends EduModel
         }
 
         return true;
+    }
+
+    //获取单个课程的详情
+    public function getDetail($id)
+    {
+        return self::find($id)->toArray();
     }
 
 }
