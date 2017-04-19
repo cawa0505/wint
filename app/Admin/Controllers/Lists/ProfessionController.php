@@ -100,7 +100,6 @@ class ProfessionController extends Controller
             $form->select('college_id','学院名称');
             $form->display('created_at','创建时间');
             $form->display('updated_at','修改时间');
-            $form->ignore(['university_id']);
         });
     }
 

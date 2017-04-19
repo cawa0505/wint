@@ -20,12 +20,10 @@ class CreateEduUserBasicInfosTable extends Migration
             $table->string('real_name')->comment('真实姓名')->nullable();
             $table->tinyInteger('sex')->comment('性别，0男1女')->nullable();
             $table->string('photo_url')->comment('皂片')->nullable();
-            $table->unsignedInteger('type')->comment('0学生，1老师，还没确定要有啥区别为好')->default(0);
             $table->unsignedInteger('class_id')->comment('班级')->nullable();
             $table->unsignedInteger('year')->comment('入学年份')->nullable();
             $table->string('term',2)->comment('入学学期')->nullable();
-            $table->string('user_auth_info')->comment('用户授权信息，json数组，不同网站对应不同信息')->nullable();
-            $table->string('cookies')->comment('用户已登录的session信息，json数组，更新时稍微麻烦一些')->nullable();
+            $table->text('user_auth_info')->comment('用户授权信息，json数组，不同网站对应不同信息')->nullable();
             $table->timestamps();
         });
     }

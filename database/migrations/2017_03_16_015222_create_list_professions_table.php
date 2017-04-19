@@ -16,11 +16,14 @@ class CreateListProfessionsTable extends Migration
         Schema::create('list_professions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('college_id');
+            $table->unsignedInteger('college_id')->nullable();
+            $table->unsignedInteger('university_id');
             $table->timestamps();
             $table->foreign('college_id')->references('id')->on('list_colleges');
+            $table->foreign('university_id')->references('id')->on('list_universities');
             $table->index('college_id');
             $table->unique(['name','college_id']);
+            $table->unique(['name','university_id']);
         });
     }
 

@@ -16,9 +16,10 @@ class CreateEduTeachersTable extends Migration
         Schema::create('edu_teachers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->tinyInteger('sex')->comment('性别');
-            $table->unsignedInteger('college_id')->comment('所属学院');
-            $table->foreign('college_id')->references('list_colleges')->on('id');
+            $table->unsignedInteger('college_id')->comment('所属学院')->nullable();
+            $table->unsignedInteger('university_id')->comment('所属学校');
+            $table->foreign('college_id')->references('id')->on('list_colleges');
+            $table->foreign('university_id')->references('id')->on('list_universities');
             $table->timestamps();
         });
     }

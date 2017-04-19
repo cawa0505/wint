@@ -12,6 +12,8 @@
         "laravel/framework": "5.4.*",
         "laravel/passport": "^2.0",
         "laravel/tinker": "~1.0",
+        "overtrue/laravel-filesystem-qiniu": "^0.0.2",
+        "overtrue/wechat": "^3.3",
         "predis/predis": "^1.1",
         "toplan/laravel-sms": "dev-master"
     },

@@ -2,30 +2,53 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-/**
- * App\Models\EduCourse
- *
- * @property int $id
- * @property string $name 课程名
- * @property string $code 课程编码
- * @property int $college_id 开课学院
- * @property bool $is_common 1公共 0专业
- * @property bool $is_required 1必修 0选修
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduCourse whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduCourse whereCollegeId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduCourse whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduCourse whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduCourse whereIsCommon($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduCourse whereIsRequired($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduCourse whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\EduCourse whereUpdatedAt($value)
- * @mixin \Eloquent
- */
-class EduCourse extends Model
+class EduCourse extends EduModel
 {
-    //
+
+    protected $fillable = ['name', 'university_id', 'code', 'is_common', 'is_required'];
+
+
+    /**输入课程基本信息，判断数据库里有没有，updateOrCreate，暂认课程名唯一
+     *
+     * @param $name
+     * @param $code
+     * @param $is_common
+     * @param $is_required
+     * @param $university_id
+     *
+     * @return int 课程id
+     */
+    public static function updateCourse ($name, $university_id, $is_common = NULL, $is_required = NULL, $code = NULL) {
+        $data['name'] = $name;
+        $data['university_id'] = $university_id;
+        $data1['code'] = $code ?: '';
+        $data1['is_common'] = $is_common ?: '';
+        $data1['is_required'] = $is_required ?: '';
+        if (empty($data1['code'])) {
+            unset($data1['code']);
+        }
+        if (empty($data1['is_common'])) {
+            unset($data1['is_common']);
+        }
+        if (empty($data1['is_required'])) {
+            unset($data1['is_required']);
+        }
+        if ($data1) {
+            $result = self::updateOrCreate($data, $data1);
+        }
+        else {
+            $result = self::firstOrCreate($data);
+        }
+        if ($result) {
+            return $result->id;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function getDetail($id)
+    {
+        //获取课程详情
+    }
 }

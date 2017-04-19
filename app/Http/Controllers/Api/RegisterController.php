@@ -17,7 +17,7 @@ class RegisterController extends ApiController
     protected function validateCode(array $data){
         //验证数据
         Validator::make($data, [
-            'mobile'     => 'required|confirm_mobile_not_change|confirm_rule:mobile_required|unique',
+            'mobile'     => 'required|confirm_mobile_not_change|confirm_rule:mobile_required|unique:users,phone',
             'verifyCode' => 'required|verify_code',
             'password'  => 'required|min:6',
         ],[

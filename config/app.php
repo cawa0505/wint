@@ -171,6 +171,7 @@ return [
         Laravel\Passport\PassportServiceProvider::class,
         Toplan\PhpSms\PhpSmsServiceProvider::class,
         Toplan\Sms\SmsManagerServiceProvider::class,
+        Overtrue\LaravelFilesystem\Qiniu\QiniuStorageServiceProvider::class,
 
 
 

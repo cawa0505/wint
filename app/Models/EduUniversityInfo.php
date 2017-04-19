@@ -8,7 +8,7 @@ namespace App\Models;
  *
  * @mixin \Eloquent
  */
-class EduUniversityInfo extends BaseModel
+class EduUniversityInfo extends EduModel
 {
 
 }
