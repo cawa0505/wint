@@ -16,6 +16,7 @@ Route::group([
     $router->resource('/lists/college','Lists\CollegeController');
     $router->resource('/lists/profession','Lists\ProfessionController');
     $router->resource('/edu/university','Education\UniversityInfoController');
+    $router->resource('/edu/course','Education\CourseController');
     $router->get('/api/china-area/city','Lists\UniversityController@cityList');
     $router->get('/api/china-area/district','Lists\UniversityController@districtList');
     $router->get('/api/china-area/college','Lists\ProfessionController@collegeList');

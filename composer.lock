@@ -979,16 +979,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.18",
+            "version": "v5.4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d15ded55b5e690199393ea93a57edcbae20d1ffc"
+                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/laravel/framework/d15ded55b5e690199393ea93a57edcbae20d1ffc.zip",
-                "reference": "d15ded55b5e690199393ea93a57edcbae20d1ffc",
+                "url": "https://files.phpcomposer.com/files/laravel/framework/02444b7450350db17a7607c8a52f7268ebdb0dad.zip",
+                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad",
                 "shasum": ""
             },
             "require": {
@@ -1104,7 +1104,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-04-10T19:27:41+00:00"
+            "time": "2017-04-16T13:33:34+00:00"
         },
         {
             "name": "laravel/passport",
@@ -1854,16 +1854,16 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "3.3.0",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "b605c3d62338c5ff693d03bb82f32d0fc53d41e0"
+                "reference": "19170b9f27dbf3e9bf63db35750936b68c530c16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/overtrue/wechat/b605c3d62338c5ff693d03bb82f32d0fc53d41e0.zip",
-                "reference": "b605c3d62338c5ff693d03bb82f32d0fc53d41e0",
+                "url": "https://files.phpcomposer.com/files/overtrue/wechat/19170b9f27dbf3e9bf63db35750936b68c530c16.zip",
+                "reference": "19170b9f27dbf3e9bf63db35750936b68c530c16",
                 "shasum": ""
             },
             "require": {
@@ -1908,7 +1908,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2017-04-13T09:13:21+00:00"
+            "time": "2017-04-16T02:32:50+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -3549,7 +3549,7 @@
                 "phone",
                 "sms"
             ],
-            "time": "2017-03-29T07:48:44+00:00"
+            "time": "2017-03-29 07:48:44"
         },
         {
             "name": "toplan/phpsms",
@@ -4021,7 +4021,7 @@
             "version": "0.9.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mockery/mockery.git",
+                "url": "https://github.com/padraic/mockery.git",
                 "reference": "6fdb61243844dc924071d3404bb23994ea0b6856"
             },
             "dist": {
