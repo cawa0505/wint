@@ -20,7 +20,7 @@ Route::post('register', 'Api\RegisterController@register');
 Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function () {
     Route::group(['namespace' => 'Edu', 'prefix' => 'edu'], function () {
         Route::resource('userBasicInfo', 'UserBasicInfoController');
-        Route::resource('schedule', 'ScheduleController@index',['only'=>'index,show']);
+        Route::resource('schedule', 'ScheduleController',['only'=>['index','show']]);
         Route::resource('coursetake', 'CoursetakeController',['only'=>'index,show']);
         Route::resource('course', 'CourseController',['only'=>'index,show']);
         Route::resource('exam', 'ExamController',['only'=>'index,show,store,destroy']);
