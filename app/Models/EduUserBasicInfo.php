@@ -88,12 +88,16 @@ class EduUserBasicInfo extends EduModel
         //首先拿到用户基本信息吧
         $user_basic_info = $this->initData($uid, 'basic_info', $this->_year, $this->_term);
         //最先获取绩点，因为绩点里的信息最全
-        $credit = $this->initData($uid, 'credit',  $this->_year, $this->_term);
+        $Credit=new EduCredit();
+        $credit = $Credit->initData($uid, 'credit',  $this->_year, $this->_term);
         //获取课表
-        $schedule = $this->initData($uid, 'schedule',  $this->_year, $this->_term);
+        $Schedule=new EduSchedule();
+        $schedule = $Schedule->initData($uid, 'schedule',  $this->_year, $this->_term);
         //获取成绩
-        $grade = $this->initData($uid, 'grade', $this->_year, $this->_term);
-        $coursetake = $this->initData($uid, 'coursetake',  $this->_year, $this->_term);
+        $Grade=new EduGrade();
+        $grade = $Grade->initData($uid, 'grade', $this->_year, $this->_term);
+        $Coursetake=new EduCoursetake();
+        $coursetake = $Coursetake->initData($uid, 'coursetake',  $this->_year, $this->_term);
         //$Exam = new EduExam();
         //$exam = $Exam->fetch($uid, 'exam', true, $this->_year, $this->_term);
     }
@@ -138,7 +142,7 @@ class EduUserBasicInfo extends EduModel
         $bi['sex'] = $data['sex']=='男'?'1':'2';
         $bi['year'] = $data['year'];
         $bi['term'] = $data['term'] == '春' ? 'S' : 'A';
-        $bi['photo_url'] = $this->uploadFile(isset($data['photo_url'])?$data['photo_url']:"http://jxxx.ncut.edu.cn/xs/show_img.asp?xh=" . $data['student_id'],$data['student_id']);
+        $bi['photo_url'] = $this->uploadFile(isset($data['photo_url'])?$data['photo_url']:"http://jxxx.ncut.edu.cn/show_img.asp?xh=" . $data['student_id'],$data['student_id']);
         $bi['class_id'] = ListClass::updateClass($data['class_name'], $data['profession'], $data['university_id']);
         return self::where('user_id','=',$uid)->update($bi);
     }
