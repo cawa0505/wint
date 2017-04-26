@@ -100,6 +100,7 @@ class EduUserBasicInfo extends EduModel
         $coursetake = $Coursetake->initData($uid, 'coursetake',  $this->_year, $this->_term);
         //$Exam = new EduExam();
         //$exam = $Exam->fetch($uid, 'exam', true, $this->_year, $this->_term);
+	return true;
     }
 
     /**

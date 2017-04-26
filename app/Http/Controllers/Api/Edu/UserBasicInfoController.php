@@ -71,9 +71,9 @@ class UserBasicInfoController extends ApiController
     public function init(Request $request)
     {
         $result = $this->model->init($request->user()->id);
-        if ($result['status'] == 0)
-            $this->success(['msg' => '初始化成功']);
+	if ($result)
+            return $this->success();
         else
-            $this->error($result['msg']);
+            return $this->error($result['msg']);
     }
 }
