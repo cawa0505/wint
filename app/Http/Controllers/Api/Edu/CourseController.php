@@ -25,8 +25,8 @@ class CourseController extends ApiController
         //先默认拿本学期的，以后再测试
         $result=$this->model->where('university_id','=',$request->user()->eduBasicInfo->university_id)->get()->toArray();
         if($result)
-            $this->success($result);
-        $this->error();
+            return $this->success($result);
+        return $this->error();
     }
 
     /**

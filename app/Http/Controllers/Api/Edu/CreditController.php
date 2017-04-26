@@ -20,8 +20,8 @@ class CreditController extends ApiController
         //先默认拿本学期的，以后再测试
         $result=$this->model->fetch($request->user()->id,'credit');
         if($result)
-            $this->success($result);
-        $this->error();
+            return $this->success($result);
+        return $this->error();
     }
 
     /**

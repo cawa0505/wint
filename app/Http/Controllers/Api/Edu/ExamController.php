@@ -20,8 +20,8 @@ class ExamController extends ApiController
         //先默认拿本学期的，以后再测试
         $result=$this->model->fetch($request->user()->id,'exam',isset($request->year)?$request->year:null,isset($request->term)?$request->term:null);
         if($result)
-            $this->success($result);
-        $this->error();
+            return $this->success($result);
+        return $this->error();
     }
 
     /**
