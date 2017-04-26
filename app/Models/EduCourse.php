@@ -7,6 +7,9 @@ class EduCourse extends EduModel
 
     protected $fillable = ['name', 'university_id', 'code', 'is_common', 'is_required'];
 
+    public function university(){
+        return $this->belongsTo('App\Models\ListUniversity','university_id');
+    }
 
     /**输入课程基本信息，判断数据库里有没有，updateOrCreate，暂认课程名唯一
      *

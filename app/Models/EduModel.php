@@ -216,9 +216,12 @@ class EduModel extends BaseModel
     }
 
     protected
-    function uploadFile($url)
+    function uploadFile($url,$student_id)
     {
-        $file = file_get_contents("http://jxxx.ncut.edu.cn/show_img.asp?xh=" . $url);
+        $file = file_get_contents($url);
+        $disk = Storage::disk('qiniu');
+        $disk->put(md5($student_id).'.png', $file);
+        return md5($student_id);
     }
 
 }

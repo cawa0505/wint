@@ -138,7 +138,7 @@ class EduUserBasicInfo extends EduModel
         $bi['sex'] = $data['sex']=='男'?'1':'2';
         $bi['year'] = $data['year'];
         $bi['term'] = $data['term'] == '春' ? 'S' : 'A';
-        $bi['photo_url'] = $this->uploadFile($data['photo_url'] . $data['student_id']);
+        $bi['photo_url'] = $this->uploadFile(isset($data['photo_url'])?$data['photo_url']:"http://jxxx.ncut.edu.cn/xs/show_img.asp?xh=" . $data['student_id'],$data['student_id']);
         $bi['class_id'] = ListClass::updateClass($data['class_name'], $data['profession'], $data['university_id']);
         return self::where('user_id','=',$uid)->update($bi);
     }
