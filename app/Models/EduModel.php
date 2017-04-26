@@ -4,7 +4,7 @@ namespace App\Models;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use Illuminate\Support\Facades\Storage;
+use zgldh\QiniuStorage\QiniuStorage;
 
 class EduModel extends BaseModel
 {
@@ -219,9 +219,9 @@ class EduModel extends BaseModel
     function uploadFile($url,$student_id)
     {
         $file = file_get_contents($url);
-        $disk = Storage::disk('qiniu');
+        $disk = QiniuStorage::disk('qiniu');
         $disk->put(md5($student_id).'.png', $file);
-        return md5($student_id);
+        return $disk->downloadUrl(md5($student_id));
     }
 
 }
