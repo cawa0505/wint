@@ -4,7 +4,7 @@ namespace App\Models;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use Illuminate\Support\Facades\Storage;
+use zgldh\QiniuStorage\QiniuStorage;
 
 class EduModel extends BaseModel
 {
@@ -216,9 +216,12 @@ class EduModel extends BaseModel
     }
 
     protected
-    function uploadFile($url)
+    function uploadFile($url,$student_id)
     {
-        $file = file_get_contents("http://jxxx.ncut.edu.cn/show_img.asp?xh=" . $url);
+        $file = file_get_contents($url);
+        $disk = QiniuStorage::disk('qiniu');
+        $disk->put(md5($student_id).'.png', $file);
+        return $disk->downloadUrl(md5($student_id));
     }
 
 }

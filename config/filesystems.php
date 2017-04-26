@@ -64,10 +64,15 @@ return [
         ],
         'qiniu' => [
             'driver'  => 'qiniu',
-            'domain' => env('QINIU_DOMAIN','http://cdn.mtlife.cn'),
-            'access_key'=> env('QINIU_ACCESS_KEY','6ujpZXGNoDrvwqKj0kWZ5Yb_b4gDkb0UnbMFmxgT'),  //AccessKey
-            'secret_key'=> env('QINIU_SECRET_KEY','6pKh4IPwOOib0-Qfai59FdN6oqkxFaOyCLFZdtiF'),  //SecretKey
-            'bucket'    => env('QINIU_BUCKET','wint'),  //Bucket名字
+            'domains' => [
+                'default'   => env('QINIU_DEFAULT_DOMAIN'), //你的七牛域名
+                'https'     => '',         //你的HTTPS域名
+                'custom'    => env('QINIU_DOMAIN'),     //你的自定义域名
+            ],
+            'access_key'=> env('QINIU_ACCESS_KEY'),  //AccessKey
+            'secret_key'=> env('QINIU_SECRET_KEY'),  //SecretKey
+            'bucket'    => env('QINIU_BUCKET'),  //Bucket名字
+            'notify_url'=> env('QINIU_NOTIFY_URL'),  //持久化处理回调地址
         ],
 
     ],

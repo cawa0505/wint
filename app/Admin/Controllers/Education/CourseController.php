@@ -76,7 +76,7 @@ class CourseController extends Controller
 
             $grid->id('ID')->sortable();
             $grid->name('课程名称');
-            $grid->university->name('所属学校');
+            $grid->university()->name('所属学校');
             $grid->created_at('创建时间');
             $grid->updated_at('更新时间');
         });
