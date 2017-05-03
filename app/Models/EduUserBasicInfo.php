@@ -12,6 +12,9 @@ class EduUserBasicInfo extends EduModel
         return $this->belongsTo('App\Models\ListClass', 'class_id');
     }
 
+    public function university(){
+        return $this->belongsTo('App\Models\ListUniversity','university_id');
+    }
 
     /**
      * @param $uid  integer 用户id
