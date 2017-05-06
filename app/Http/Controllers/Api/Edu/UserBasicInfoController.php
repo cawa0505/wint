@@ -30,7 +30,7 @@ class UserBasicInfoController extends ApiController
         $result->university;
         $result->classes;
         if (!$result)
-            return $this->error(['msg' => '没有数据，请绑定']);
+            return $this->error(['msg' => '没有数据，请绑定'],403);
         return $this->success($result->toArray());
     }
 
