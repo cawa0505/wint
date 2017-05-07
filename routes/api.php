@@ -18,7 +18,7 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::resource('edu\userBasicInfo', 'Edu\UserBasicInfoController');
+    Route::resource('edu/userBasicInfo', 'Edu\UserBasicInfoController');
     Route::group(['namespace' => 'Edu', 'prefix' => 'edu', 'middleware' => 'HasBindEdu'], function () {
         Route::resource('schedule', 'ScheduleController', ['only' => ['index', 'show']]);
         Route::resource('coursetake', 'CoursetakeController', ['only' => ['index', 'show']]);

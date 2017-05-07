@@ -27,11 +27,11 @@ class UserBasicInfoController extends ApiController
     public function index(Request $request)
     {
         $result = $this->model->where('user_id', $request->user()->id)->first();
-        $result->university;
-        $result->classes;
         if (!$result)
             return $this->error(['msg' => '没有数据，请绑定'],403);
-        return $this->success($result->toArray());
+        $result->university;
+	$result->classes;
+	return $this->success($result->toArray());
     }
 
     /**
