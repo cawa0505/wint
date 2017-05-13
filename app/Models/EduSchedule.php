@@ -52,7 +52,7 @@ class EduSchedule extends EduModel
             ->select('edu_schedules.*', 'edu_courses.name', 'edu_teachers.name as teacher_name', 'list_classrooms.name as classroom_name', 'list_buildings.name as building_name')
             ->get();
 
-        return $schedules->toArray();
+        return $schedules;
     }
 
     /**上面整合完，在这里批量写入数据库及对应关系以及校验数据准确性

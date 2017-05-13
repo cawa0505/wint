@@ -79,7 +79,6 @@ class EduModel extends BaseModel
     {
         if ($needCurl)
             $this->initData($uid, $funcType, $year, $term);
-
         return $this->getAllData($uid);
     }
 
@@ -174,17 +173,8 @@ class EduModel extends BaseModel
     }
 
 //必须重写
-    public
-    function getAllData($uid)
-    {
-
-    }
 
 //必须重写
-    public
-    function saveData($data)
-    {
-    }
 
     /**
      * @param $university_id integer 学校id

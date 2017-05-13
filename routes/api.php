@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function () {
         Route::resource('course', 'CourseController', ['only' => ['index', 'show']]);
         Route::resource('exam', 'ExamController', ['only' => ['index', 'show', 'store', 'destroy']]);
         Route::resource('grade', 'GradeController', ['only' => ['index', 'show']]);
-        Route::resource('credit', 'GradeController', ['only' => ['index', 'show']]);
+        Route::resource('credit', 'CreditController', ['only' => ['index', 'show']]);
         Route::get('init', 'UserBasicInfoController@init');
     });
 });

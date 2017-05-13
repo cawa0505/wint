@@ -18,12 +18,11 @@ class EduCredit extends EduModel
     public function getAllData($uid)
     {
         $where['user_id'] = $uid;
-        $credits = self::where($where)
+	$credits = self::where($where)
             ->leftJoin('edu_courses', 'edu_courses.id', '=', 'edu_credits.course_id')
             ->select('edu_credits.*', 'edu_courses.name as course_name', 'edu_courses.is_common as course_common', 'edu_courses.is_required as course_required', 'edu_courses.code as course_code')
             ->get();
-
-        return $credits->toArray();
+	return $credits;
     }
 
     public function saveData($data)
