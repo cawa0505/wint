@@ -26,7 +26,13 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function () {
         Route::resource('exam', 'ExamController', ['only' => ['index', 'show', 'store', 'destroy']]);
         Route::resource('grade', 'GradeController', ['only' => ['index', 'show']]);
         Route::resource('credit', 'CreditController', ['only' => ['index', 'show']]);
-        Route::get('init', 'UserBasicInfoController@init');
+        Route::get('init', 'UserBasicInfoController@init')->name("初始化数据");
+    });
+    Route::group(['namespace' => 'Util', 'prefix' => 'util'], function () {
+        Route::get('provinceList', 'PositionController@getProvince')->name("获取省份列表");
+        Route::get('cityList/{province_id}', 'PositionController@getCity')->name("获取城市列表");
+        Route::get('districtList/{city_id}', 'PositionController@getDistrict')->name("获取地区列表");
+        Route::get('universityList/{district_id}', 'PositionController@getUniversity')->name("获取学校列表");
     });
 });
 
