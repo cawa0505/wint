@@ -43,11 +43,11 @@ class EduExam extends EduModel
         $exams = EduExam::whereIn('edu_exams.id', $exam_ids)
             ->leftJoin('edu_courses', 'edu_exams.course_id', '=', 'edu_courses.id')
             ->leftJoin('list_classrooms', 'edu_exams.classroom_id', '=', 'list_classrooms.id')
-            ->leftJoin('list_buildings', 'edu_exams.building_id', '=', 'list_buildings.id')
+            ->leftJoin('list_buildings', 'list_classrooms.building_id', '=', 'list_buildings.id')
             ->select('edu_exams.*', 'edu_courses.name', 'list_classrooms.name as classroom_name', 'list_buildings.name as building_name')
             ->get();
 
-        return $exams->toArray();
+        return $exams;
     }
 
 

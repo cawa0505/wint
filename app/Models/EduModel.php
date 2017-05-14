@@ -77,10 +77,13 @@ class EduModel extends BaseModel
 
     public function fetch($uid, $funcType, $year = null, $term = null, $needCurl = false)
     {
-        if ($needCurl)
+       	$this->_year=$year;
+	$this->_term=$term;
+	 if ($needCurl)
             $this->initData($uid, $funcType, $year, $term);
         return $this->getAllData($uid);
     }
+
 
     public function initData($uid, $funcType, $year = null, $term = null)
     {
