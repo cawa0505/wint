@@ -23,9 +23,9 @@ class PositionController extends ApiController
     }
 
     public function getCity($province_id){
-        $province=ListProvince::find($province_id);
-        if($province){
-            return $this->success($province->city());
+       $province=ListProvince::find($province_id);
+ if($province){
+            return $this->success($province->city);
         }
         return $this->error();
     }
@@ -33,7 +33,7 @@ class PositionController extends ApiController
     public function getDistrict($city_id){
         $city=ListCity::find($city_id);
         if($city){
-            return $this->success($city->district());
+            return $this->success($city->district);
         }
         return $this->error();
     }
@@ -41,7 +41,7 @@ class PositionController extends ApiController
     public function getUniversity($district_id){
         $district=ListDistrict::find($district_id);
         if($district){
-            return $this->success($district->university());
+            return $this->success($district->university);
         }
         return $this->error();
     }

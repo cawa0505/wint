@@ -28,10 +28,10 @@ use Illuminate\Database\Eloquent\Model;
 class ListUniversity extends Model
 {
     public function district(){
-        return $this->belongsTo('App\Models\ListDistrict');
+        return $this->belongsTo('App\Models\ListDistrict','distict_id');
     }
 
     public function college(){
-        return $this->hasMany('App\Models\ListCollege');
+        return $this->hasMany('App\Models\ListCollege','university_id');
     }
 }

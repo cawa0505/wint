@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class ListProvince extends Model
 {
     public function city(){
-        return $this->hasMany('App\Models\ListCity');
+        return $this->hasMany('App\Models\ListCity','province_id');
     }
 
 }

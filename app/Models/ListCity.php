@@ -22,10 +22,10 @@ use Illuminate\Database\Eloquent\Model;
 class ListCity extends Model
 {
     public function province(){
-        return $this->belongsTo('App\Models\ListProvince');
+        return $this->belongsTo('App\Models\ListProvince','province_id');
     }
 
     public function district(){
-        return $this->hasMany('App\Models\ListDistrict');
+        return $this->hasMany('App\Models\ListDistrict','city_id');
     }
 }
