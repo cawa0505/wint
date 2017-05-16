@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Edu;
 
 use App\Http\Controllers\Api\ApiController;
+use App\Models\EduUniversityInfo;
 use App\Models\EduUserBasicInfo;
 use Illuminate\Http\Request;
 
@@ -28,10 +29,10 @@ class UserBasicInfoController extends ApiController
     {
         $result = $this->model->where('user_id', $request->user()->id)->first();
         if (!$result)
-            return $this->error(['msg' => '没有数据，请绑定'],403);
+            return $this->error(['msg' => '没有数据，请绑定'], 403);
         $result->university;
-	$result->classes;
-	return $this->success($result->toArray());
+        $result->classes;
+        return $this->success($result->toArray());
     }
 
     /**
@@ -73,9 +74,19 @@ class UserBasicInfoController extends ApiController
     public function init(Request $request)
     {
         $result = $this->model->init($request->user()->id);
-	if ($result)
+        if ($result)
             return $this->success();
         else
             return $this->error($result['msg']);
+    }
+
+    public function getUniversityFunctionList(Request $request)
+    {
+        //获取当前学校支持的功能
+        $result=EduUniversityInfo::where('university_id','=',$request->user()->eduBasicInfo->university_id)->value("function_list");
+        $result=json_decode($result);
+        if($result)
+            return $this->success($result);
+        return $this->error("数据解析异常");
     }
 }

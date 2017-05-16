@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function () {
         Route::resource('grade', 'GradeController', ['only' => ['index', 'show']]);
         Route::resource('credit', 'CreditController', ['only' => ['index', 'show']]);
         Route::get('init', 'UserBasicInfoController@init')->name("初始化数据");
+        Route::get('func_list', 'UserBasicInfoController@getUniversityFunctionList')->name("获取学校支持的功能列表");
     });
     Route::group(['namespace' => 'Util', 'prefix' => 'util'], function () {
         Route::get('provinceList', 'PositionController@getProvince')->name("获取省份列表");
