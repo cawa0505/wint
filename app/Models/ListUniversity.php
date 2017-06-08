@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
 class ListUniversity extends Model
 {
     public function district(){
-        return $this->belongsTo('App\Models\ListDistrict','distict_id','id');
+        return $this->belongsTo('App\Models\ListDistrict');
     }
 
     public function college(){
