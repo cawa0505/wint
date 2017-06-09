@@ -20,16 +20,16 @@ class EduSchedule extends EduModel
             $week['turning'] = $week['day']%2==0?2:1;
         }
         $schedule_ids = EduUserSchedule::where($where)->pluck('schedule_id');
-	$schedules = self:://whereIn('edu_schedules.id', $schedule_ids)
-            //->where('start_week', '<=', $week['day'])
-            //->where('end_week', '>=', $week['day'])
-            //->whereIn('turning', [0,$week['turning']])
-            leftJoin('edu_courses', 'edu_schedules.course_id', '=', 'edu_courses.id')
-            ->leftJoin('edu_teachers', 'edu_schedules.teacher_id', '=', 'edu_teachers.id')
-            ->leftJoin('list_classrooms', 'edu_schedules.classroom_id', '=', 'list_classrooms.id')
-            ->leftJoin('list_buildings', 'list_classrooms.building_id', '=', 'list_buildings.id')
-            ->select('edu_schedules.*', 'edu_courses.name', 'edu_teachers.name as teacher_name', 'list_classrooms.name as classroom_name', 'list_buildings.name as building_name')
-            ->get();
+	$schedules = self::whereIn('edu_schedules.id', $schedule_ids)
+        ->where('start_week', '<=', $week['day'])
+        ->where('end_week', '>=', $week['day'])
+        ->whereIn('turning', [0,$week['turning']])
+        ->leftJoin('edu_courses', 'edu_schedules.course_id', '=', 'edu_courses.id')
+        ->leftJoin('edu_teachers', 'edu_schedules.teacher_id', '=', 'edu_teachers.id')
+        ->leftJoin('list_classrooms', 'edu_schedules.classroom_id', '=', 'list_classrooms.id')
+        ->leftJoin('list_buildings', 'list_classrooms.building_id', '=', 'list_buildings.id')
+        ->select('edu_schedules.*', 'edu_courses.name', 'edu_teachers.name as teacher_name', 'list_classrooms.name as classroom_name', 'list_buildings.name as building_name')
+        ->get();
 
         return $schedules->toArray();
     }
