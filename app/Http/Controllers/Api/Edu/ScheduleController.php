@@ -38,7 +38,7 @@ class ScheduleController extends ApiController
     public function show(Request $request, $schedule=null)
     {
         //获取某周课的详情
-        $result=$this->model->getByWeek($request->user()->eduBasicInfo->university_id,$schedule);
+        $result=$this->model->getByWeek($request->user()->id,$schedule);
         if($result)
             $this->success($result);
         $this->error();
