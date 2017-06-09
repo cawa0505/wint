@@ -6,19 +6,29 @@ class EduSchedule extends EduModel
 {
     protected $fillable = ['id', 'course_id', 'year', 'term', 'start_week', 'end_week', 'turning', 'day', 'time', 'duration', 'teacher_id', 'classroom_id'];
 
-    public function getByWeek($uid,$week=null){
+    public function getByWeek($uid, $week = null)
+    {
         $where['user_id'] = $uid;
-        if($this->_year)
-            $where['year']=$this->_year;
-        if($this->_term)
-            $where['term']=$this->_term;
-        if(!$week)
-            $week=$this->whichWeek(EduUserBasicInfo::where('user_id','=',$uid)->value('university_id'));
+        if ($this->_year)
+            $where['year'] = $this->_year;
+        if ($this->_term)
+            $where['term'] = $this->_term;
+        if (!$week)
+            $week = $this->whichWeek(EduUserBasicInfo::where('user_id', '=', $uid)->value('university_id'));
+        else {
+            $week['day'] = $week;
+            if ((int)$week['day'] / 2 == 0) {
+                $sex = 2;
+            } else {
+                $sex = 1;
+            }
+            $week['turning'] = $sex;
+        }
         $schedule_ids = EduUserSchedule::where($where)->pluck('schedule_id');
         $schedules = self::whereIn('edu_schedules.id', $schedule_ids)
-            ->whereDate('start_week','<=',$week['day'])
-            ->whereDate('end_week','>=',$week['day'])
-            ->where('turning','=',$week['turning'])
+            ->whereDate('start_week', '<=', $week['day'])
+            ->whereDate('end_week', '>=', $week['day'])
+            ->where('turning', '=', $week['turning'])
             ->leftJoin('edu_courses', 'edu_schedules.course_id', '=', 'edu_courses.id')
             ->leftJoin('edu_teachers', 'edu_schedules.teacher_id', '=', 'edu_teachers.id')
             ->leftJoin('list_classrooms', 'edu_schedules.classroom_id', '=', 'list_classrooms.id')
@@ -37,12 +47,13 @@ class EduSchedule extends EduModel
      *
      * @return mixed
      */
-    public function getAllData ($uid) {
+    public function getAllData($uid)
+    {
         $where['user_id'] = $uid;
-        if($this->_year)
-            $where['year']=$this->_year;
-        if($this->_term)
-            $where['term']=$this->_term;
+        if ($this->_year)
+            $where['year'] = $this->_year;
+        if ($this->_term)
+            $where['term'] = $this->_term;
         $schedule_ids = EduUserSchedule::where($where)->pluck('schedule_id');
         $schedules = self::whereIn('edu_schedules.id', $schedule_ids)
             ->leftJoin('edu_courses', 'edu_schedules.course_id', '=', 'edu_courses.id')
@@ -62,19 +73,18 @@ class EduSchedule extends EduModel
      *
      * @return bool true Or false
      */
-    public function saveData ($data) {
+    public function saveData($data)
+    {
         for ($i = 0; $i < sizeof($data); $i++) {
             $schedule['course_id'] = EduCourse::updateCourse($data[$i]['course_name'], $data[$i]['university_id']);
             $schedule['start_week'] = $data[$i]['start_week'];
             $schedule['end_week'] = $data[$i]['end_week'];
             if ($data[$i]['turning'] == '周') {
                 $schedule['turning'] = 0;
-            }
-            else {
+            } else {
                 if ($data[$i]['turning'] == '单周') {
                     $schedule['turning'] = 1;
-                }
-                else {
+                } else {
                     if ($data[$i]['turning'] == '双周') {
                         $schedule['turning'] = '2';
                     }
@@ -91,10 +101,10 @@ class EduSchedule extends EduModel
             $result = self::firstOrCreate($schedule);
             if ($result) {
                 EduUserSchedule::firstOrCreate([
-                    'user_id'     => $data[$i]['uid'],
+                    'user_id' => $data[$i]['uid'],
                     'schedule_id' => $result->id,
-                    'year'        => $this->_year,
-                    'term'        => $this->_term,
+                    'year' => $this->_year,
+                    'term' => $this->_term,
                 ]);
             }
             $schedule = NULL;
