@@ -11,6 +11,6 @@ namespace App\Models;
 class EduUniversityInfo extends EduModel
 {
     public function university(){
-        return $this->hasOne('App\Models\ListUniversity');
+        return $this->hasOne('App\Models\ListUniversity','university_id','id');
     }
 }
