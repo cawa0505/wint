@@ -35,10 +35,10 @@ class ScheduleController extends ApiController
      * @param  \App\Models\EduSchedule  $eduSchedule
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $week=null)
+    public function show(Request $request, $schedule=null)
     {
         //获取某周课的详情
-        $result=$this->model->getByWeek($request->user()->eduBasicInfo->university_id,$week);
+        $result=$this->model->getByWeek($request->user()->eduBasicInfo->university_id,$schedule);
         if($result)
             $this->success($result);
         $this->error();

@@ -35,7 +35,7 @@ class EduSchedule extends EduModel
      * @param $year string
      * @param $term string
      *
-     * @return array
+     * @return mixed
      */
     public function getAllData ($uid) {
         $where['user_id'] = $uid;
