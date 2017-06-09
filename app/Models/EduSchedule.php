@@ -6,17 +6,17 @@ class EduSchedule extends EduModel
 {
     protected $fillable = ['id', 'course_id', 'year', 'term', 'start_week', 'end_week', 'turning', 'day', 'time', 'duration', 'teacher_id', 'classroom_id'];
 
-    public function getByWeek($uid, $week = null)
+    public function getByWeek($uid, $week1 = null)
     {
         $where['user_id'] = $uid;
         if ($this->_year)
             $where['year'] = $this->_year;
         if ($this->_term)
             $where['term'] = $this->_term;
-        if (!$week)
+        if (!$week1)
             $week = $this->whichWeek(EduUserBasicInfo::where('user_id', '=', $uid)->value('university_id'));
         else {
-            $week['day'] = $week;
+            $week['day'] = $week1;
             if ((int)$week['day'] / 2 == 0) {
                 $sex = 2;
             } else {
