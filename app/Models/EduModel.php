@@ -199,7 +199,7 @@ class EduModel extends BaseModel
             $sex = 1;
         }
 
-        return ['day' => $week, 'type' => $sex];
+        return ['day' => $week, 'turning' => $sex];
     }
 
     protected
